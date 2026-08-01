@@ -44,7 +44,7 @@ Kyro CMS provides ready-to-run, hostable one-line deployment scripts for all maj
 
 | Target Platform | Deploy Button | One-Line `curl` Deployment Command | Local Script Location |
 | :--- | :--- | :--- | :--- |
-| **Cloudflare Pages** | [![Deploy](https://img.shields.io/badge/Deploy-Cloudflare-18181B?style=flat-square&logo=cloudflare&logoColor=F38020)](https://deploy.workers.cloudflare.com/?url=https://github.com/danielDozie/kyro-cms) | `curl -fsSL https://kyro-cms.com/scripts/deploy-cloudflare.sh \| bash -s -- "postgres://..."` | `bash docs/deployments/cloudflare/deploy.sh` |
+| **Cloudflare Pages** | [![Deploy](https://img.shields.io/badge/Deploy-Cloudflare-18181B?style=flat-square&logo=cloudflare&logoColor=F38020)](https://deploy.workers.cloudflare.com/?url=https://github.com/danielDozie/kyro-cms) | `npx kyro deploy cloudflare -d postgres -u "postgres://..."` | `npx kyro deploy cloudflare` |
 | **Vercel Serverless** | [![Deploy](https://img.shields.io/badge/Deploy-Vercel-18181B?style=flat-square&logo=vercel&logoColor=white)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FdanielDozie%2Fkyro-cms) | `curl -fsSL https://kyro-cms.com/scripts/deploy-vercel.sh \| bash -s -- "postgres://..."` | `bash docs/deployments/vercel/deploy.sh` |
 | **Netlify Edge** | [![Deploy](https://img.shields.io/badge/Deploy-Netlify-18181B?style=flat-square&logo=netlify&logoColor=00C7B7)](https://app.netlify.com/start/deploy?repository=https://github.com/danielDozie/kyro-cms) | `curl -fsSL https://kyro-cms.com/scripts/deploy-netlify.sh \| bash -s -- "postgres://..."` | `bash docs/deployments/netlify/deploy.sh` |
 | **Railway App** | [![Deploy](https://img.shields.io/badge/Deploy-Railway-18181B?style=flat-square&logo=railway&logoColor=white)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2FdanielDozie%2Fkyro-cms) | `curl -fsSL https://kyro-cms.com/scripts/deploy-railway.sh \| bash -s -- "postgres://..."` | `bash docs/deployments/railway/deploy.sh` |
@@ -54,11 +54,12 @@ Kyro CMS provides ready-to-run, hostable one-line deployment scripts for all maj
 You can customize initial credentials and project parameters via environment variables:
 
 ```bash
-DATABASE_URL="postgres://user:password@host:5432/dbname?sslmode=require" \
-PROJECT_NAME="my-blog-cms" \
-ADMIN_EMAIL="admin@mydomain.com" \
-ADMIN_PASSWORD="MySecurePassword123!" \
-bash docs/deployments/cloudflare/deploy.sh
+npx kyro deploy cloudflare -d postgres \
+  -u "postgres://user:password@host:5432/dbname?sslmode=require" \
+  -n "my-blog-cms" \
+  -e "admin@mydomain.com" \
+  -p "MySecurePassword123!" \
+  -y
 ```
 
 ---

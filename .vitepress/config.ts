@@ -162,29 +162,7 @@ export default withMermaid(
       },
     },
 
-    vite: {
-      plugins: [
-        {
-          name: "kyro-deploy-middleware",
-          configureServer(server) {
-            server.middlewares.use(async (req, res, next) => {
-              if (req.url?.split("?")[0] === "/api/create-and-deploy") {
-                try {
-                  const { createAndDeployHandler } = await import(
-                    "../../packages/create-kyro/src/server.ts"
-                  );
-                  await createAndDeployHandler(req as any, res as any);
-                } catch (err: any) {
-                  res.statusCode = 500;
-                  res.end(JSON.stringify({ error: err?.message }));
-                }
-                return;
-              }
-              next();
-            });
-          },
-        },
-      ],
-    },
+    vite: {},
   }),
 );
+

@@ -6,13 +6,13 @@ Fast, simple, and automated zero-touch deployment script for hosting **Kyro CMS*
 
 ## ⚡ Quick Start (1-Command Deployment)
 
-Run the script in your Kyro CMS project directory:
+Run the command in your Kyro CMS project directory:
 
 ```bash
-bash scripts/deployments/cloudflare/deploy.sh
+npx kyro deploy cloudflare
 ```
 
-The script will automatically provision your database (Cloudflare D1), create media storage (Cloudflare R2), seed the Super Admin account, and deploy your live CMS onto Cloudflare Workers with Assets.
+The CLI will automatically provision your database (Cloudflare D1), create media storage (Cloudflare R2), seed the Super Admin account, and deploy your live CMS onto Cloudflare Workers with Assets.
 
 ---
 
@@ -22,10 +22,10 @@ You can pass CLI arguments directly or run in non-interactive mode (`-y`) for au
 
 ```bash
 # Deploy to Cloudflare Workers with native D1 (Zero-Config Serverless SQLite)
-bash scripts/deployments/cloudflare/deploy.sh -d d1 -n my-cms-app -y
+npx kyro deploy cloudflare -d d1 -n my-cms-app -y
 
 # Deploy to Cloudflare Workers with external PostgreSQL via Hyperdrive
-bash scripts/deployments/cloudflare/deploy.sh -d postgres \
+npx kyro deploy cloudflare -d postgres \
   -u "postgresql://user:password@host:5432/dbname?sslmode=require" \
   -n my-postgres-cms -e "admin@mydomain.com" -p "MySecurePassword123!" -y
 ```
@@ -37,7 +37,7 @@ bash scripts/deployments/cloudflare/deploy.sh -d postgres \
 | `-d` | `--database` | Database type (`d1` or `postgres`) | `d1` |
 | `-u` | `--database-url` | PostgreSQL connection string | — |
 | `-n` | `--name` | Cloudflare Workers project name | `kyro-app-<random>` |
-| `-r2` | `--r2-bucket` | R2 storage bucket name | `kyro-media-<random>` |
+| `-b` | `--r2-bucket` | R2 storage bucket name | `kyro-media-<random>` |
 | `-e` | `--email` | Initial Super Admin email | `admin@kyro-cms.com` |
 | `-p` | `--password` | Initial Super Admin password | Auto-generated |
 | `-y` | `--non-interactive` | Skip interactive prompts and accept defaults | `false` |

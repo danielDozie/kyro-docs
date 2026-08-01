@@ -7,7 +7,9 @@ This directory contains deployment configurations and setup guides for various h
 To deploy Kyro CMS with database provisioning (Cloudflare D1 / Hyperdrive PostgreSQL) and R2 storage:
 
 ```bash
-bash scripts/deployments/cloudflare/deploy.sh
+npx kyro deploy cloudflare
+# or
+pnpm kyro deploy cloudflare
 ```
 
 ---

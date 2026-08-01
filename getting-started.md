@@ -12,7 +12,7 @@ Kyro CMS is built for **Astro** from the ground up. Unlike other CMS solutions t
 The easiest way to start is with the `create-kyro` CLI, which scaffolds a fresh Astro project pre-configured with Kyro CMS, a database adapter, and styling of your choice.
 
 ```bash
-npm create kyro@latest
+pnpm create @kyro-cms@latest
 ```
 
 This will launch an interactive wizard that asks you a few questions:
@@ -58,7 +58,7 @@ At the root of your project, create a `kyro.config.ts` file. This is the **singl
 ```typescript
 // kyro.config.ts
 import { defineConfig, createLocalAdapter } from "@kyro-cms/core";
-import { allSettingsGlobals } from "@kyro-cms/core/templates";
+import { allGlobalSettings } from "@kyro-cms/core/templates";
 
 export default defineConfig({
   adapter: createLocalAdapter({ path: "./data.db" }),
@@ -74,28 +74,28 @@ export default defineConfig({
       ],
     },
   ],
-  globals: allSettingsGlobals,
+  globals: allGlobalSettings,
 });
 ```
 
 > [!IMPORTANT]
-> **The `globals: allSettingsGlobals` property is required.** This registers all of Kyro's built-in settings panels (Site, SEO, Brand, Email, Storage, Access, Store, Shipping, and System) with both the admin dashboard and the API layer. Without it:
+> **The `globals: allGlobalSettings` property is required.** This registers all of Kyro's built-in settings panels (Site, SEO, Brand, Email, Storage, Access, Store, Shipping, and System) with both the admin dashboard and the API layer. Without it:
 > - The **Settings** section in the admin UI will be empty — none of the settings pages will render.
 > - **API endpoints** for reading and updating settings (e.g., site name, SEO defaults, email config) will not be registered.
 > - Features that depend on settings data (like storage configuration, access control, and email delivery) will fail silently at runtime.
 >
-> Always include `globals: allSettingsGlobals` in every `kyro.config.ts` file.
+> Always include `globals: allGlobalSettings` in every `kyro.config.ts` file.
 
 > [!TIP]
 > **Using Pre-built Templates:** Instead of writing collections from scratch, you can import Kyro's pre-built templates (like `blog`, `ecommerce`, `minimal`) directly into your config. The `globals` property is still required:
 > ```typescript
 > import { defineConfig, createLocalAdapter } from "@kyro-cms/core";
-> import { templateCollections, allSettingsGlobals } from "@kyro-cms/core/templates";
+> import { templateCollections, allGlobalSettings } from "@kyro-cms/core/templates";
 >
 > export default defineConfig({
 >   adapter: createLocalAdapter({ path: "./data.db" }),
 >   collections: templateCollections.blog,
->   globals: allSettingsGlobals,
+>   globals: allGlobalSettings,
 > });
 > ```
 

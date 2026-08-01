@@ -9,7 +9,7 @@
 To start the interactive prompt, execute:
 
 ```bash
-pnpm create kyro@latest my-cms-project
+pnpm create @kyro-cms@latest my-cms-project
 ```
 
 ### Supported Package Managers
