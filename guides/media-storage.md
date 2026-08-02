@@ -12,9 +12,9 @@ Kyro CMS includes a robust media management system. It allows you to define coll
 To allow file uploads in any standard collection, use the `upload` field type:
 
 ```typescript
-import { defineConfig } from "@kyro-cms/core";
+import { defineKyroConfig } from "@kyro-cms/core";
 
-export default defineConfig({
+export default defineKyroConfig({
   collections: {
     documents: {
       slug: "documents",

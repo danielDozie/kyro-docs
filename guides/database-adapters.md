@@ -17,15 +17,18 @@ Kyro supports 5 official database adapters out-of-the-box:
 
 ### 1. SQLite Adapter (Local & Development)
 
-The `createLocalAdapter` is the default adapter for local development. It uses a local `.db` file powered by `node:sqlite`.
+The `createLocalAdapter` is the default adapter for local development. It uses a local SQLite database powered by Node's native `node:sqlite`.
 
 ```typescript
-import { defineConfig, createLocalAdapter } from "@kyro-cms/core";
+import { defineKyroConfig, createLocalAdapter } from "@kyro-cms/core";
 
-export default defineConfig({
-  adapter: createLocalAdapter({ path: "./data.db" }),
+export default defineKyroConfig({
+  adapter: createLocalAdapter({ path: "./data/kyro.db" }),
 });
 ```
+
+> [!TIP]
+> `createLocalAdapter` automatically handles creating the target directory if needed and lazy-loads database drivers at runtime, preventing Vite bundling issues in Astro.
 
 ---
 
@@ -34,9 +37,9 @@ export default defineConfig({
 The `createNeonAdapter` connects to Neon PostgreSQL over Web-standard `fetch` HTTP requests. It is designed for Vercel Edge Functions, Cloudflare Workers, and Netlify Edge.
 
 ```typescript
-import { defineConfig, createNeonAdapter } from "@kyro-cms/core";
+import { defineKyroConfig, createNeonAdapter } from "@kyro-cms/core";
 
-export default defineConfig({
+export default defineKyroConfig({
   adapter: createNeonAdapter({
     connectionString: process.env.DATABASE_URL!,
   }),
@@ -53,9 +56,9 @@ export default defineConfig({
 The `createTursoAdapter` connects to Turso / libSQL databases over Web-standard HTTP requests. It allows ultra-fast SQLite capabilities on V8 Edge isolates without requiring native C++ binaries.
 
 ```typescript
-import { defineConfig, createTursoAdapter } from "@kyro-cms/core";
+import { defineKyroConfig, createTursoAdapter } from "@kyro-cms/core";
 
-export default defineConfig({
+export default defineKyroConfig({
   adapter: createTursoAdapter({
     url: process.env.TURSO_DATABASE_URL!,
     authToken: process.env.TURSO_AUTH_TOKEN,
@@ -70,9 +73,9 @@ export default defineConfig({
 For robust relational data storage in standard Node.js server environments, use `createDrizzleAdapter`.
 
 ```typescript
-import { defineConfig, createDrizzleAdapter } from "@kyro-cms/core";
+import { defineKyroConfig, createDrizzleAdapter } from "@kyro-cms/core";
 
-export default defineConfig({
+export default defineKyroConfig({
   adapter: createDrizzleAdapter({
     type: "postgres",
     connectionString: process.env.DATABASE_URL!,
@@ -87,9 +90,9 @@ export default defineConfig({
 If your data is document-oriented, use `createMongoDBAdapter`.
 
 ```typescript
-import { defineConfig, createMongoDBAdapter } from "@kyro-cms/core";
+import { defineKyroConfig, createMongoDBAdapter } from "@kyro-cms/core";
 
-export default defineConfig({
+export default defineKyroConfig({
   adapter: createMongoDBAdapter({
     connectionString: process.env.MONGODB_URI!,
   }),
@@ -104,7 +107,7 @@ A common pattern is to choose between local SQLite in development and Turso or N
 
 ```typescript
 import { 
-  defineConfig, 
+  defineKyroConfig, 
   createLocalAdapter, 
   createTursoAdapter 
 } from "@kyro-cms/core";
@@ -116,9 +119,9 @@ const adapter = isProduction
       url: process.env.TURSO_DATABASE_URL!,
       authToken: process.env.TURSO_AUTH_TOKEN 
     })
-  : createLocalAdapter({ path: "./dev-data.db" });
+  : createLocalAdapter({ path: "./data/kyro.db" });
 
-export default defineConfig({
+export default defineKyroConfig({
   adapter,
 });
 ```

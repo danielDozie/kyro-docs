@@ -82,10 +82,9 @@ Vercel provides seamless deployment for Astro and Kyro CMS.
 
 #### Edge Setup Example (`kyro.config.ts`):
 ```typescript
-import { defineConfig } from '@kyro-cms/core';
-import { createTursoAdapter, createNeonAdapter } from '@kyro-cms/core';
+import { defineKyroConfig, createTursoAdapter } from '@kyro-cms/core';
 
-export default defineConfig({
+export default defineKyroConfig({
   // Edge-ready libSQL / Turso adapter
   db: createTursoAdapter({
     url: process.env.TURSO_DATABASE_URL!,

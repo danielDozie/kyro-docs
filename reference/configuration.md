@@ -5,13 +5,18 @@ description: Complete API reference for kyro.config.ts, defineConfig(), and all 
 
 # Configuration Reference
 
-Kyro CMS is driven by a single `kyro.config.ts` file at the root of your project. Use the `defineConfig` helper from `@kyro-cms/core` for type-safe configuration.
+Kyro CMS is driven by a single `kyro.config.ts` file at the root of your project. Use the `defineKyroConfig` helper from `@kyro-cms/core` for type-safe configuration.
+
+> [!TIP]
+> **Why `defineKyroConfig`?**
+> Using `defineKyroConfig` avoids naming collisions with Astro's `import { defineConfig } from "astro/config"` and Vite's `defineConfig`. `defineConfig` is also exported as an alias for backwards compatibility.
 
 ```typescript
 // kyro.config.ts
-import { defineConfig, createLocalAdapter } from "@kyro-cms/core";
+import { defineKyroConfig, createLocalAdapter } from "@kyro-cms/core";
 
-export default defineConfig({
+export default defineKyroConfig({
+  adapter: createLocalAdapter({ path: "./data/kyro.db" }),
   // ... options
 });
 ```

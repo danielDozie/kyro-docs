@@ -179,8 +179,30 @@ Page-level SEO (on pages/posts/products) includes `keywords`, `twitter` card gro
 
 ### Storage Settings (`storage-settings`)
 
-Configures the active storage provider (S3, R2, Cloudinary, local, etc.).
+Configures the active storage provider (S3, R2, GCS, Cloudinary, FTP, local, etc.).
 
 ### Email Settings (`email-settings`)
 
 SMTP configuration for transactional emails.
+
+---
+
+## Pre-packaged Global Bundles
+
+Instead of writing global singletons manually, you can import pre-built global bundles from `@kyro-cms/core/templates`:
+
+```typescript
+import { defineKyroConfig, createLocalAdapter } from "@kyro-cms/core";
+import { coreGlobalSettings, allGlobalSettings } from "@kyro-cms/core/templates";
+
+export default defineKyroConfig({
+  adapter: createLocalAdapter({ path: "./data/kyro.db" }),
+  collections: [/* your collections */],
+  globals: coreGlobalSettings, // Default: Site, SEO, Brand, Email, Storage, Access, System
+});
+```
+
+| Export Bundle | Included Globals | Best Used For |
+|---------------|------------------|---------------|
+| `coreGlobalSettings` | `siteSettingsGlobal`, `seoSettingsGlobal`, `brandSettingsGlobal`, `emailSettingsGlobal`, `storageSettingsGlobal`, `accessSettingsGlobal`, `systemSettingsGlobal` | Standard content sites, blogs, portfolios |
+| `allGlobalSettings` | All 7 core globals + `storeSettingsGlobal` & `shippingSettingsGlobal` | E-Commerce, stores, digital products |

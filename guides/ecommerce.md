@@ -14,15 +14,16 @@ Instead of building your store schema from scratch, Kyro provides a pre-built te
 You can import these collections directly into your configuration:
 
 ```typescript
-import { defineConfig, createLocalAdapter } from "@kyro-cms/core";
-import { ecommerceCollections } from "@kyro-cms/core/templates";
+import { defineKyroConfig, createLocalAdapter } from "@kyro-cms/core";
+import { ecommerceCollections, allGlobalSettings } from "@kyro-cms/core/templates";
 
-export default defineConfig({
-  adapter: createLocalAdapter({ path: "./store.db" }),
-  // This automatically registers Products, Orders, Customers, and Categories
+export default defineKyroConfig({
+  adapter: createLocalAdapter({ path: "./data/kyro.db" }),
+  // Automatically registers Products, Orders, Customers, and Categories
   collections: [
     ...Object.values(ecommerceCollections)
   ],
+  globals: allGlobalSettings, // Includes Store Settings (currency, tax) & Shipping Settings
 });
 ```
 

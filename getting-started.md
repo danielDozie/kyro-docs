@@ -57,11 +57,11 @@ At the root of your project, create a `kyro.config.ts` file. This is the **singl
 
 ```typescript
 // kyro.config.ts
-import { defineConfig, createLocalAdapter } from "@kyro-cms/core";
-import { allGlobalSettings } from "@kyro-cms/core/templates";
+import { defineKyroConfig, createLocalAdapter } from "@kyro-cms/core";
+import { coreGlobalSettings } from "@kyro-cms/core/templates";
 
-export default defineConfig({
-  adapter: createLocalAdapter({ path: "./data.db" }),
+export default defineKyroConfig({
+  adapter: createLocalAdapter({ path: "./data/kyro.db" }),
   collections: [
     {
       slug: "posts",
@@ -74,26 +74,46 @@ export default defineConfig({
       ],
     },
   ],
-  globals: allGlobalSettings,
+  globals: coreGlobalSettings, // Default core settings panels (Site, SEO, Brand, Email, Storage, Access, System)
 });
 ```
 
-> [!IMPORTANT]
-> **The `globals: allGlobalSettings` property is required.** This registers all of Kyro's built-in settings panels (Site, SEO, Brand, Email, Storage, Access, Store, Shipping, and System) with both the admin dashboard and the API layer. Without it:
-> - The **Settings** section in the admin UI will be empty — none of the settings pages will render.
-> - **API endpoints** for reading and updating settings (e.g., site name, SEO defaults, email config) will not be registered.
-> - Features that depend on settings data (like storage configuration, access control, and email delivery) will fail silently at runtime.
->
-> Always include `globals: allGlobalSettings` in every `kyro.config.ts` file.
+> [!NOTE]
+> **Understanding `globals` & Setting Bundles:**
+> Passing `globals` registers settings panels and singleton schemas in your admin dashboard and API layer.
+> - **`coreGlobalSettings` (Default & Recommended):** Includes the 7 core settings panels needed by standard content sites and blogs: **Site, SEO, Brand, Email, Storage, Access, and System**.
+> - **`allGlobalSettings` (E-Commerce Use Case):** Use `allGlobalSettings` when building e-commerce or store applications. In addition to the 7 core panels, it adds **Store Settings** (currency, tax rules) and **Shipping Settings** (zones, rates).
+> - **Custom Singletons:** You can also define custom global schemas directly in `globals` (e.g. `{ slug: "header-banner", label: "Header Banner", fields: [...] }`), or omit `globals` altogether if you only want custom collections.
+
+### Global Settings Options
+
+Kyro CMS provides pre-built global setting panels exported from `@kyro-cms/core/templates` that you can import and pass to `globals`:
+
+| Export / Global Option | Panel Slug | Included in `coreGlobalSettings`? | Description |
+|------------------------|------------|-----------------------------------|-------------|
+| `siteSettingsGlobal` | `site-settings` | ✅ Yes | Site title, tagline, logo, description, maintenance mode |
+| `seoSettingsGlobal` | `seo-settings` | ✅ Yes | Default meta title, description, OpenGraph image, Twitter handle |
+| `brandSettingsGlobal` | `brand-settings` | ✅ Yes | Primary brand colors, favicon, custom theme styles |
+| `emailSettingsGlobal` | `email-settings` | ✅ Yes | SMTP host, port, authentication, sender email & name |
+| `storageSettingsGlobal` | `storage-settings` | ✅ Yes | S3, R2, GCS, Cloudinary, FTP, and local storage provider settings |
+| `accessSettingsGlobal` | `access-settings` | ✅ Yes | User registration toggles, default roles, email verification |
+| `systemSettingsGlobal` | `system-settings` | ✅ Yes | System logs, cache purge options, API key management |
+| `storeSettingsGlobal` | `store-settings` | 🛒 E-Commerce only (`allGlobalSettings`) | Store details, currency symbol, tax calculation rules |
+| `shippingSettingsGlobal` | `shipping-settings` | 🛒 E-Commerce only (`allGlobalSettings`) | Shipping zones, flat rates, free shipping thresholds |
+
+#### Pre-packaged Bundles:
+- **`coreGlobalSettings` (Recommended Default)**: Includes the 7 core panels above (omitting store & shipping).
+- **`allGlobalSettings` (E-Commerce & Stores)**: Includes all 9 global settings panels (adds Store & Shipping).
+- **Custom Singletons**: You can also define your own custom global schemas directly in `globals` (e.g. `{ slug: "header-banner", label: "Header Banner", fields: [...] }`).
 
 > [!TIP]
-> **Using Pre-built Templates:** Instead of writing collections from scratch, you can import Kyro's pre-built templates (like `blog`, `ecommerce`, `minimal`) directly into your config. The `globals` property is still required:
+> **Using Pre-built Templates:** Instead of writing collections from scratch, you can import Kyro's pre-built templates (like `blog`, `ecommerce`, `minimal`) directly into your config:
 > ```typescript
-> import { defineConfig, createLocalAdapter } from "@kyro-cms/core";
+> import { defineKyroConfig } from "@kyro-cms/core";
 > import { templateCollections, allGlobalSettings } from "@kyro-cms/core/templates";
 >
-> export default defineConfig({
->   adapter: createLocalAdapter({ path: "./data.db" }),
+> export default defineKyroConfig({
+>   adapter,
 >   collections: templateCollections.blog,
 >   globals: allGlobalSettings,
 > });
@@ -131,14 +151,14 @@ This automatically sets up your API routes and mounts the admin dashboard at `/a
 
 ### 4. Setup API Routes (Optional)
 
-If you need custom API behavior, create an endpoint at `src/pages/api/[...kyro].ts`:
+If you need custom API route handling in your Astro project, create an endpoint at `src/pages/api/[...kyro].ts`:
 
 ```typescript
 // src/pages/api/[...kyro].ts
-import { createKyroServer } from '@kyro-cms/core/api-handler';
-import config from '../../kyro.config';
+import { createKyroHandler } from "@kyro-cms/core";
+import kyroConfig from "../../../kyro.config";
 
-export const all = createKyroServer(config);
+export const ALL = createKyroHandler(kyroConfig);
 ```
 
 ### 5. Start the Server

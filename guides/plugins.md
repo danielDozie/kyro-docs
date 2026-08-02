@@ -39,11 +39,11 @@ As of the latest architecture update, all Config Plugins must extend the `KyroPl
 To install a global plugin, add it to your project's dependencies and register it in `kyro.config.ts`:
 
 ```typescript
-import { defineConfig } from "@kyro-cms/core";
+import { defineKyroConfig } from "@kyro-cms/core";
 import { SeoPlugin } from "kyro-plugin-seo";
 import { StripePlugin } from "kyro-plugin-stripe";
 
-export default defineConfig({
+export default defineKyroConfig({
   // ... core config
   plugins: [
     new SeoPlugin({

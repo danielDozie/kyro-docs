@@ -16,9 +16,9 @@ Plugins are the primary way to package and share custom functionality. A plugin 
 Kyro provides several official plugins that you can import and register in your `kyro.config.ts`:
 
 ```typescript
-import { defineConfig, SEOPlugin, AnalyticsPlugin } from "@kyro-cms/core";
+import { defineKyroConfig, SEOPlugin, AnalyticsPlugin } from "@kyro-cms/core";
 
-export default defineConfig({
+export default defineKyroConfig({
   // ...
   plugins: [
     new SEOPlugin(),

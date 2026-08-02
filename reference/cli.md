@@ -153,3 +153,27 @@ npx kyro-codegen \
 | `--api-key` | Yes | — | API key with access to the schema endpoint |
 | `--output` | No | `kyro.generated.d.ts` | Output path |
 
+---
+
+## Deployment Commands (`kyro deploy`)
+
+### `kyro deploy cloudflare`
+
+Deploy your Kyro CMS application to **Cloudflare Workers with Assets** (+ Cloudflare D1 / Hyperdrive PostgreSQL + Cloudflare R2 storage):
+
+```bash
+npx kyro deploy cloudflare -d d1 -n my-cms-app -y
+```
+
+| Flag | Long Option | Description | Default |
+| --- | --- | --- | --- |
+| `-d` | `--database` | Database type (`d1` or `postgres`) | `d1` |
+| `-u` | `--database-url` | PostgreSQL connection string (when database = `postgres`) | — |
+| `-n` | `--name` | Cloudflare Workers project name | `kyro-app-<random>` |
+| `-b` | `--r2-bucket` | R2 storage bucket name | `kyro-media-<random>` |
+| `-e` | `--email` | Initial Super Admin email | `admin@kyro-cms.com` |
+| `-p` | `--password` | Initial Super Admin password | Auto-generated |
+| `-y` | `--non-interactive` | Skip interactive prompts and accept defaults | `false` |
+| `-q` | `--quiet` | Run silently without prompts or spinners | `false` |
+| `-j` | `--json` | Emit machine-readable JSON deployment results | `false` |
+

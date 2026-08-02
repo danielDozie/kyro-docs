@@ -12,10 +12,10 @@ Kyro CMS features a robust, enterprise-grade authentication system out of the bo
 Authentication is enabled by defining the `auth` property in your `kyro.config.ts`. The only required property is a `secret` used to sign your JSON Web Tokens.
 
 ```typescript
-import { defineConfig } from "@kyro-cms/core";
+import { defineKyroConfig } from "@kyro-cms/core";
 import { getAppSecret } from "./src/lib/secret.js";
 
-export default defineConfig({
+export default defineKyroConfig({
   // ...
   auth: {
     // Highly recommended to load this from an environment variable!
@@ -87,16 +87,37 @@ super_admin (100) > admin (90) > editor (70) > author (50) > customer (30) > gue
 
 ### Collection-Level Access
 
-You can restrict access to entire collections based on roles:
+You can restrict access to entire collections based on roles or custom functions:
 
 ```typescript
 {
-  name: "secrets",
+  slug: "secrets",
   access: {
     read: ["admin", "super_admin"],
     create: ["super_admin"],
     update: ["super_admin"],
     delete: ["super_admin"],
+  },
+  fields: [/* ... */]
+}
+```
+
+### Functional Access Control Callbacks
+
+Instead of static role lists, access control rules accept callback functions that receive `{ req, id, data }`:
+
+```typescript
+{
+  slug: "documents",
+  access: {
+    // Return true to allow, false to deny
+    create: ({ req }) => Boolean(req.user),
+    // Return a query constraint object for row-level security (users only see their own docs)
+    read: ({ req }) => {
+      if (req.user?.role === "admin") return true;
+      return { authorId: req.user?.id };
+    },
+    update: ({ req }) => req.user?.role === "admin" || req.user?.role === "editor",
   },
   fields: [/* ... */]
 }
@@ -108,7 +129,7 @@ You can also restrict access to specific fields within a collection:
 
 ```typescript
 {
-  name: "users",
+  slug: "users",
   fields: [
     { name: "name", type: "text" },
     { 
@@ -122,6 +143,25 @@ You can also restrict access to specific fields within a collection:
   ]
 }
 ```
+
+---
+
+## Machine-to-Machine API Keys
+
+For automated scripts, background jobs, or server-to-server microservices, Kyro CMS supports persistent **API Keys** (`api_keys`).
+
+### Authenticating with an API Key
+Pass the key in requests via the `Authorization` or `X-API-Key` HTTP headers:
+
+```http
+Authorization: Bearer kyro_sec_a1b2c3d4...
+```
+or
+```http
+X-API-Key: kyro_sec_a1b2c3d4...
+```
+
+API Key requests execute with full permissions associated with the key's assigned role or custom permission scope, bypassing interactive cookie sessions.
 
 ## Authentication REST API Endpoints
 

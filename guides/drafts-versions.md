@@ -18,9 +18,9 @@ v0.8.x had separate `/drafts`, `/publish`, and `/unpublish` endpoints. These are
 Enable versioning and drafts on a per-collection basis:
 
 ```ts
-import { defineConfig } from "@kyro-cms/core";
+import { defineKyroConfig } from "@kyro-cms/core";
 
-export default defineConfig({
+export default defineKyroConfig({
   collections: [
     {
       name: "posts",

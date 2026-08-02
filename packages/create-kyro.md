@@ -56,3 +56,30 @@ npx create-kyro@latest my-project --template blog --db sqlite --install
 | `-i, --install` | None | Installs npm dependencies automatically |
 | `-y, --yes` | None | Bypasses all prompt checks and uses default settings |
 | `--help` | None | Lists command parameters |
+
+---
+
+## 4. Cloudflare Serverless Deployer
+
+`create-kyro` packages an automated zero-config deployer that provisions Cloudflare Workers, Cloudflare D1 (SQLite), Cloudflare R2 (media storage), seeds super admin accounts, and deploys your application:
+
+```bash
+npx kyro deploy cloudflare
+```
+
+### Programmatic Deployment API
+
+You can also run Cloudflare deployments programmatically with real-time SSE progress streaming:
+
+```typescript
+import { deployCloudflare } from "@kyro-cms/create/deployers/cloudflare";
+
+for await (const event of deployCloudflare({
+  projectDir: "/path/to/project",
+  projectName: "my-kyro-app",
+  database: "d1",
+  adminEmail: "admin@example.com",
+})) {
+  console.log(event.type, event.step, event.message);
+}
+```

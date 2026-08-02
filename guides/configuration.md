@@ -14,11 +14,11 @@ When you use the `create-kyro` CLI, a default configuration file is automaticall
 Here is a full example of a configuration file:
 
 ```typescript
-import { defineConfig, createLocalAdapter } from "@kyro-cms/core";
+import { defineKyroConfig, createLocalAdapter } from "@kyro-cms/core";
 
-export default defineConfig({
+export default defineKyroConfig({
   // 1. Database Adapter
-  adapter: createLocalAdapter({ path: "./data.db" }),
+  adapter: createLocalAdapter({ path: "./data/kyro.db" }),
 
   // 2. Collections (Your Content Types)
   collections: [
@@ -78,7 +78,12 @@ An array of objects defining your content types (e.g., Users, Posts, Products). 
 *Learn more about defining fields in the [Field Types](./field-types) guide.*
 
 ### `globals`
-An array of objects defining singletons. Globals are perfect for site-wide settings like Navigation, Footer details, or SEO defaults.
+An optional array of global singletons and settings schemas. 
+
+You can pass:
+- **Pre-packaged bundles from `@kyro-cms/core/templates`**: `allGlobalSettings` (all 9 built-in panels: Site, SEO, Brand, Email, Storage, Access, System, Store, Shipping) or `coreGlobalSettings` (7 core panels).
+- **Individual built-in panels**: `siteSettingsGlobal`, `seoSettingsGlobal`, `brandSettingsGlobal`, `emailSettingsGlobal`, `storageSettingsGlobal`, `accessSettingsGlobal`, `systemSettingsGlobal`, `storeSettingsGlobal`, `shippingSettingsGlobal`.
+- **Custom singletons**: Your own custom global schemas (e.g. Navigation, Footer, Header Banner).
 
 *Learn more in the [Globals](./globals) guide.*
 
