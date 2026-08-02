@@ -1,6 +1,6 @@
 ---
 title: Configuration Reference
-description: Complete API reference for kyro.config.ts, defineConfig(), and all configuration options in Kyro CMS.
+description: Complete API reference for kyro.config.ts, defineKyroConfig(), and all configuration options in Kyro CMS.
 ---
 
 # Configuration Reference
@@ -217,11 +217,11 @@ graphQL: {
 
 ```typescript
 import {
-  defineConfig,
+  defineKyroConfig,
   createLocalAdapter,
 } from "@kyro-cms/core";
 
-export default defineConfig({
+export default defineKyroConfig({
   adapter: createLocalAdapter({ path: "./data/kyro.db" }),
 
   collections: [

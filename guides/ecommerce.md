@@ -61,10 +61,10 @@ Tracks purchases and fulfillment.
 
 ## Customizing the Template
 
-The beauty of the template approach is that it just returns an array of standard Kyro Collection definitions. You can easily modify them before passing them to `defineConfig`.
+The beauty of the template approach is that it just returns an array of standard Kyro Collection definitions. You can easily modify them before passing them to `defineKyroConfig`.
 
 ```typescript
-import { defineConfig } from "@kyro-cms/core";
+import { defineKyroConfig } from "@kyro-cms/core";
 import { ecommerceCollections } from "@kyro-cms/core/templates";
 
 // Extract the products collection
@@ -78,7 +78,7 @@ productsCollection.fields.push({
   hasMany: true
 });
 
-export default defineConfig({
+export default defineKyroConfig({
   // ...
   collections: [
     productsCollection,

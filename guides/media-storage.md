@@ -34,9 +34,9 @@ For managing a shared image library used across multiple collections, use a dedi
 Kyro provides a pre-built media collection template:
 
 ```typescript
-import { defineConfig, mediaCollections } from "@kyro-cms/core";
+import { defineKyroConfig, mediaCollections } from "@kyro-cms/core";
 
-export default defineConfig({
+export default defineKyroConfig({
   collections: [
     ...mediaCollections, // Injects 'media' and 'folders' collections
   ],

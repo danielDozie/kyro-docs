@@ -116,7 +116,7 @@ You can also inject entirely new pages into the sidebar navigation.
 
 ```typescript
 // kyro.config.ts
-export default defineConfig({
+export default defineKyroConfig({
   admin: {
     views: [
       {
@@ -140,10 +140,10 @@ Customize default list columns, icons, and sidebar group names for built-in coll
 
 ```typescript
 // kyro.config.ts
-import { defineConfig } from "@kyro-cms/core";
+import { defineKyroConfig } from "@kyro-cms/core";
 import { templateCollections } from "@kyro-cms/core/templates";
 
-export default defineConfig({
+export default defineKyroConfig({
   collections: templateCollections["kitchen-sink"],
   admin: {
     collectionOverrides: {
@@ -308,7 +308,7 @@ You can override collection admin properties like icons, columns, and layout:
 
 ```typescript
 // kyro.config.ts
-export default defineConfig({
+export default defineKyroConfig({
   admin: {
     collectionOverrides: {
       pages: {
@@ -330,7 +330,7 @@ Override specific field properties using dot-notation paths. This is particularl
 
 ```typescript
 // kyro.config.ts
-export default defineConfig({
+export default defineKyroConfig({
   admin: {
     collectionOverrides: {
       menu: {
@@ -418,7 +418,7 @@ export const menuCollection: CollectionConfig = {
 **2. User extends with custom collections:**
 ```typescript
 // kyro.config.ts
-export default defineConfig({
+export default defineKyroConfig({
   admin: {
     collectionOverrides: {
       menu: {
@@ -446,9 +446,9 @@ If your `pages` collection has a dynamic `content` blocks field containing a `re
 
 ```typescript
 // kyro.config.ts
-import { defineConfig } from "@kyro-cms/core";
+import { defineKyroConfig } from "@kyro-cms/core";
 
-export default defineConfig({
+export default defineKyroConfig({
   admin: {
     collectionOverrides: {
       pages: {

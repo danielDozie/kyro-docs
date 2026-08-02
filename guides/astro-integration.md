@@ -1,6 +1,6 @@
-# Astro 5+ Native Integration
+# Astro Native Integration
 
-Kyro CMS is built ground-up to be the **#1 Astro-Native Headless CMS**. It seamlessly integrates into Astro 5+ projects via the dedicated `@kyro-cms/astro` package, using native Content Layer loaders, Astro Actions, Middleware, Dev Toolbar apps, and Zero-JS `.astro` rendering components.
+Kyro CMS is built ground-up to be the **#1 Astro-Native Headless CMS**. It seamlessly integrates into Astro projects via the dedicated `@kyro-cms/astro` package, using native Content Layer loaders, Astro Actions, Middleware, Dev Toolbar apps, and Zero-JS `.astro` rendering components.
 
 ---
 
@@ -42,7 +42,7 @@ export default defineConfig({
 
 ## 2. <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-3px;margin-right:6px;"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a6 6 0 0 1-12 0V8z"/></svg> Astro Content Layer Loader (`kyroLoader`)
 
-Astro 5+ introduced custom Content Layer loaders. Use `kyroLoader()` in `src/content.config.ts` to feed your Kyro CMS collections directly into Astro's `getCollection()` store with full type-safety and sub-second HMR store sync.
+Use `kyroLoader()` in `src/content.config.ts` to feed your Kyro CMS collections directly into Astro's `getCollection()` store with full type-safety and sub-second HMR store sync.
 
 ### Setup (`src/content.config.ts`):
 
@@ -205,7 +205,7 @@ const { heroImage } = Astro.props;
 
 ### `<KyroServerIsland />` — Astro Server Islands Helper
 
-For hybrid / SSG sites, use Astro 5 Server Islands (`server:defer`) to defer dynamic Kyro CMS content with automatic animated skeleton fallbacks:
+For hybrid / SSG sites, use Astro Server Islands (`server:defer`) to defer dynamic Kyro CMS content with automatic animated skeleton fallbacks:
 
 ```astro
 ---

@@ -1,11 +1,11 @@
 ---
 title: "@kyro-cms/astro"
-description: Astro 5+ native integration package for Kyro CMS containing Content Layer loaders, Actions, Middleware, Dev Toolbar widget, and Zero-JS components.
+description: Astro native integration package for Kyro CMS containing Content Layer loaders, Actions, Middleware, Dev Toolbar widget, and Zero-JS components.
 ---
 
 # `@kyro-cms/astro`
 
-The `@kyro-cms/astro` package provides native Astro 5+ integrations for Kyro CMS. It allows you to query CMS collections using Astro's Content Layer, validate form submissions via Astro Actions, protect routes using Astro Middleware, monitor CMS status in Astro's Dev Toolbar, and render content using Zero-JS `.astro` components.
+The `@kyro-cms/astro` package provides native Astro integrations for Kyro CMS. It allows you to query CMS collections using Astro's Content Layer, validate form submissions via Astro Actions, protect routes using Astro Middleware, monitor CMS status in Astro's Dev Toolbar, and render content using Zero-JS `.astro` components.
 
 ---
 

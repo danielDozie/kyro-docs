@@ -61,18 +61,38 @@ From this one file, Kyro automatically generates:
 6. **The TypeScript Client SDK**
 
 ```typescript
-import { defineConfig, createLocalAdapter } from "@kyro-cms/core";
-import { z } from "zod";
+import { defineKyroConfig, createLocalAdapter } from "@kyro-cms/core";
+import { coreGlobalSettings } from "@kyro-cms/core/templates";
 
-export default defineConfig({
-  adapter: createLocalAdapter({ path: "./data.db" }),
+export default defineKyroConfig({
+  adapter: createLocalAdapter({ path: "./data/kyro.db" }),
   collections: [
     // Your entire app architecture is defined here
-  ]
+  ],
+  globals: coreGlobalSettings,
 });
 ```
 
-By passing this configuration to the `createApiHandler` (for your backend) and the `<Admin />` component (for your frontend), the entire system stays perfectly synchronized.
+By passing this configuration to `createKyroHandler` (for server API endpoints) and the `kyroAdmin()` integration (for the Admin UI), the entire system stays perfectly synchronized.
+
+## System Architecture Overview
+
+```
+ ┌────────────────────────────────────────────────────────────────────────┐
+ │                            Astro Framework                             │
+ └───────────────────────────────────┬────────────────────────────────────┘
+                                     │
+       ┌─────────────────────────────┴─────────────────────────────┐
+       ▼                                                           ▼
+┌──────────────────────────────┐                         ┌───────────────────┐
+│     @kyro-cms/core (Server)  │                         │ @kyro-cms/admin   │
+├──────────────────────────────┤                         ├───────────────────┤
+│ • kyro.config.ts Registry    │                         │ • React Admin UI  │
+│ • Database Adapters          │ ─── Server Sent Events ──► • Media Manager   │
+│   (SQLite / D1 / Postgres)   │ ◄── REST/GraphQL/tRPC ──│ • Content Forms   │
+│ • API Handlers & Auth        │                         │ • Settings Panels │
+└──────────────────────────────┘                         └───────────────────┘
+```
 
 ## GraphQL Schema
 

@@ -178,12 +178,12 @@ For microservice architectures or dedicated API backends deployed on Docker, Rai
 ```typescript
 // server.ts
 import { serve } from "@hono/node-server";
-import { createKyro, defineConfig, createDrizzleAdapter } from "@kyro-cms/core";
+import { createKyro, defineKyroConfig, createDrizzleAdapter } from "@kyro-cms/core";
 import config from "./kyro.config";
 
 // Initialize the Kyro backend instance
 const kyro = await createKyro({
-  config: defineConfig({
+  config: defineKyroConfig({
     ...config,
     server: {
       port: Number(process.env.PORT) || 4000,
@@ -216,7 +216,7 @@ Bun provides ultra-fast HTTP request handling natively out of the box with zero 
 
 ```typescript
 // server.bun.ts
-import { createKyro, defineConfig } from "@kyro-cms/core";
+import { createKyro, defineKyroConfig } from "@kyro-cms/core";
 import config from "./kyro.config";
 
 const kyro = await createKyro({ config });
