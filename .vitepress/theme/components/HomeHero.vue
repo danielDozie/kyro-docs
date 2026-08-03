@@ -231,9 +231,9 @@ onMounted(() => {
           </div>
           <span class="code-filename">kyro.config.ts</span>
         </div>
-        <pre class="code-body"><code><span class="syn-kw">import</span> <span class="syn-punct">{</span> defineConfig <span class="syn-punct">}</span> <span class="syn-kw">from</span> <span class="syn-str">'@kyro-cms/core'</span><span class="syn-punct">;</span>
+        <pre class="code-body"><code><span class="syn-kw">import</span> <span class="syn-punct">{</span> defineKyroConfig <span class="syn-punct">}</span> <span class="syn-kw">from</span> <span class="syn-str">'@kyro-cms/core'</span><span class="syn-punct">;</span>
 
-<span class="syn-kw">export default</span> <span class="syn-fn">defineConfig</span><span class="syn-punct">({</span>
+<span class="syn-kw">export default</span> <span class="syn-fn">defineKyroConfig</span><span class="syn-punct">({</span>
   <span class="syn-prop">collections</span><span class="syn-punct">:</span> <span class="syn-punct">[{</span>
     <span class="syn-prop">slug</span><span class="syn-punct">:</span> <span class="syn-str">'posts'</span><span class="syn-punct">,</span>
     <span class="syn-prop">fields</span><span class="syn-punct">:</span> <span class="syn-punct">[</span>
@@ -592,6 +592,7 @@ onMounted(() => {
   transform: translateY(-2px);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
 }
+
 
 @keyframes shimmer {
   0% { left: -60%; }

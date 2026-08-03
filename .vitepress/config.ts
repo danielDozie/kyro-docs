@@ -102,7 +102,6 @@ export default withMermaid(
               { text: "Admin Customization", link: "/guides/admin-customization" },
               { text: "Plugins & Extensions", link: "/guides/plugins" },
               { text: "Localization & i18n", link: "/guides/localization" },
-              { text: "Deployment", link: "/guides/deployment" },
             ],
           },
           {

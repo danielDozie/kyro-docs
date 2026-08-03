@@ -280,12 +280,18 @@ function copyText(text, flagRef) {
 
 <template>
   <!-- ── Trigger Button ─────────────────────────────────────────────────── -->
-  <button class="deploy-trigger" @click="openModal" type="button" aria-haspopup="dialog">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-    Deploy to Cloudflare
-  </button>
+  <div class="deploy-trigger-wrapper">
+    <button class="deploy-trigger" type="button" disabled title="Coming soon — currently in active development">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 19V5M5 12l7-7 7 7"/>
+      </svg>
+      Deploy to Cloudflare
+    </button>
+    <span class="coming-soon-badge-notif">
+      <span class="pulse-dot" />
+      COMING SOON
+    </span>
+  </div>
 
   <!-- ── Backdrop ───────────────────────────────────────────────────────── -->
   <Teleport to="body">
@@ -590,6 +596,10 @@ function copyText(text, flagRef) {
 
 <style scoped>
 /* ── Trigger ──────────────────────────────────────────────────────────────── */
+.deploy-trigger-wrapper {
+  position: relative;
+  display: inline-flex;
+}
 .deploy-trigger {
   display: inline-flex;
   align-items: center;
@@ -609,6 +619,46 @@ function copyText(text, flagRef) {
 .deploy-trigger:hover {
   background: var(--k-accent-ghost);
   border-color: var(--k-border-hover);
+}
+.deploy-trigger[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed !important;
+  pointer-events: none;
+  border-color: var(--k-border);
+  background: transparent;
+}
+.coming-soon-badge-notif {
+  position: absolute;
+  top: -8px;
+  right: -5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(139, 92, 246, 0.15);
+  color: #a78bfa;
+  font-size: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 2.5px 7px;
+  border-radius: 99px;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 6px rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  pointer-events: none;
+  z-index: 5;
+}
+.pulse-dot {
+  width: 4px;
+  height: 4px;
+  background: #a78bfa;
+  border-radius: 50%;
+  animation: pulse-purple 1.8s infinite ease-out;
+}
+@keyframes pulse-purple {
+  0% { transform: scale(0.95); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.6; }
+  100% { transform: scale(0.95); opacity: 1; }
 }
 
 /* ── Backdrop ─────────────────────────────────────────────────────────────── */
