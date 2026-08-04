@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.12.44 (2026-08-04)
+
+- **ESM Code Splitting**: Enabled bundler code-splitting (`splitting: true`), reducing core entrypoint bundle sizes by ~98% to 99.9% (e.g. `api-handler.js` reduced from 2.55 MB to 1.38 KB).
+- **Database Adapter Factory Pattern**: Created `AdapterFactory` (`src/database/factory.ts`) with lazy dynamic `import()` loading for database adapters.
+- **Admin View Code-Splitting**: Converted heavy admin views (`MediaGallery`, `WebhookManager`, `DeveloperCenter`, `BrandingHub`, `UserManagement` in `Admin.tsx`) to `React.lazy()` + `<Suspense>` dynamic imports.
+- **Document Hook Pipeline Pattern**: Implemented `HookPipeline` (`src/hooks/HookPipeline.ts`) using the Pipeline Pattern for document lifecycle hook execution.
+- **Field Strategy Pattern Registry**: Created `FieldStrategyRegistry` (`admin/src/services/FieldStrategyRegistry.ts`) establishing a Strategy Pattern for form field renderers.
+- **LocalAdapter Handle Recovery**: Enhanced `LocalAdapter` connection lifecycle with `SELECT 1` health checks and `this.db = null` reset on disconnect to prevent `ERR_INVALID_STATE` (database is not open) errors.
+- **Vite Dynamic Import Compatibility**: Standardized dynamic driver imports in `drizzle/adapter.ts` with `/* @vite-ignore */` comments, resolving dev server import warnings.
+
 ## v0.12.21 (2026-07-27)
 
 - **Collapsible Sidebar & Icon Rail**: Interactive minimization toggle for the admin sidebar with smooth transitions to a compact 76px icon rail mode.

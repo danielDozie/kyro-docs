@@ -187,3 +187,29 @@ export const SlugField: Field = {
 
 > [!TIP]
 > In Field Hooks, you receive `value` (the value of the current field) and `siblingData` (a map of the data for all other fields at the same nesting level). This is incredibly useful for computing derived values.
+
+---
+
+## 4. The `HookPipeline` Pattern
+
+Under the hood, Kyro CMS executes hooks using the `HookPipeline` class (`import { HookPipeline } from '@kyro-cms/core'`).
+
+`HookPipeline` implements a type-safe **Pipeline / Chain of Responsibility Pattern**:
+
+```typescript
+import { HookPipeline } from '@kyro-cms/core';
+
+// Programmatically run a pipeline of hooks over custom data
+const finalData = await HookPipeline.run(myHooksArray, {
+  collection: 'posts',
+  operation: 'create',
+  data: rawPostData,
+  req: currentRequest,
+});
+```
+
+### Benefits of `HookPipeline`:
+- **Sequential Execution**: Hooks run in exact array order, passing mutated data to the next step.
+- **Error Isolation**: Async errors in hooks are wrapped with collection context details, preventing unhandled promise rejections.
+- **Type Safety**: Fully typed with generics `HookPipeline<T>`.
+

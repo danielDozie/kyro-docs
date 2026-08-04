@@ -106,6 +106,18 @@ Access control is unified across all three protocols (REST, GraphQL, tRPC) via t
 
 The kyro-connect SDK provides a fully typed client with generic `CollectionClient<T, F>`, `GqlClient`, and `UploadClient` classes.
 
+## Performance & Optimization Architecture
+
+### ESM Code-Splitting & Dynamic Chunking
+`@kyro-cms/core` enables ESM code-splitting (`splitting: true`), isolating shared internal utilities into deduplicated chunks in `dist/`. Entrypoint bundles remain ultra-lightweight (e.g. `api-handler.js` at ~1.38 KB), loading heavy internal modules on demand.
+
+### Design Pattern Abstractions
+- **Adapter Factory Pattern (`AdapterFactory`)**: Dynamically loads database driver packages (`drizzle`, `mongodb`, `local`) on demand using runtime `import()` calls with `/* @vite-ignore */` annotations.
+- **Field Strategy Pattern (`FieldStrategyRegistry`)**: Establishes a Strategy Pattern registry for form field renderers in `@kyro-cms/admin`, supporting pluggable custom field types and UI extensions.
+- **Hook Pipeline Pattern (`HookPipeline`)**: Executes collection and field lifecycle hooks sequentially via a Chain of Responsibility pattern with async error isolation and context propagation.
+- **Admin View Code-Splitting**: Heavy admin components (`MediaGallery`, `WebhookManager`, `DeveloperCenter`, `BrandingHub`, `UserManagement`) are loaded asynchronously via `React.lazy()` and `<Suspense>`, keeping the initial admin dashboard payload minimal.
+
+
 ## Edge Cases & Common Pitfalls
 
 ### 1. Accidentally Importing `@kyro-cms/core` into Client Islands
