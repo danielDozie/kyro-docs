@@ -1,6 +1,6 @@
-# create-kyro CLI Scaffolder
+# @kyro-cms/create
 
-`create-kyro` is an interactive scaffolding command-line utility designed to set up a clean, running Kyro CMS workspace in seconds.
+`@kyro-cms/create` is an interactive scaffolding command-line utility designed to set up a clean, running Kyro CMS workspace in seconds.
 
 ---
 
@@ -23,7 +23,7 @@ The CLI detects your running terminal manager automatically and scaffolds lockfi
 
 ## 2. Interactive Prompts & Setup Flow
 
-When launched, `create-kyro` guides you through a series of structural configurations:
+When launched, `@kyro-cms/create` guides you through a series of structural configurations:
 
 1.  **Project Location**: Specify the directory to initialize (defaults to the current path `./`).
 2.  **Starter Template Selection**:
@@ -44,7 +44,7 @@ When launched, `create-kyro` guides you through a series of structural configura
 You can bypass interactive prompts by passing direct flags:
 
 ```bash
-npx create-kyro@latest my-project --template blog --db sqlite --install
+npx @kyro-cms/create@latest my-project --template blog --db sqlite --install
 ```
 
 ### Available Command Parameters
@@ -59,17 +59,13 @@ npx create-kyro@latest my-project --template blog --db sqlite --install
 
 ---
 
-## 4. Cloudflare Serverless Deployer
+## 4. Programmatic Deployment API
 
-`create-kyro` packages an automated zero-config deployer that provisions Cloudflare Workers, Cloudflare D1 (SQLite), Cloudflare R2 (media storage), seeds super admin accounts, and deploys your application:
+`@kyro-cms/create` packages an automated zero-config deployer API that provisions Cloudflare Workers, Cloudflare D1 (SQLite), Cloudflare R2 (media storage), seeds super admin accounts, and deploys your application. 
 
-```bash
-npx kyro deploy cloudflare
-```
+*(Note: If you're using the CLI, you can simply run `npx kyro deploy cloudflare` which is provided by the `@kyro-cms/core` package).*
 
-### Programmatic Deployment API
-
-You can also run Cloudflare deployments programmatically with real-time SSE progress streaming:
+You can run Cloudflare deployments programmatically with real-time SSE progress streaming using this package:
 
 ```typescript
 import { deployCloudflare } from "@kyro-cms/create/deployers/cloudflare";

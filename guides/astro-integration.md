@@ -225,6 +225,6 @@ import KyroServerIsland from '@kyro-cms/astro/components/KyroServerIsland.astro'
 
 Kyro provides command-line tools for database operations and TypeScript generation:
 
-* **`npx kyro typegen`**: Scans your `kyro.config.ts` and updates type definitions in `src/env.d.ts` or `kyro-types.d.ts`.
-* **`npx kyro migrate`**: Runs Drizzle / ORM database migrations based on configured collections.
+* **`npx kyro generate`**: Scans your `kyro.config.ts` and updates type definitions in `src/env.d.ts` or `kyro-types.d.ts`.
+* **`npx kyro db migrate`**: Runs Drizzle / ORM database migrations based on configured collections.
 * **`npx kyro dev`**: Starts the Astro dev server with full Kyro CMS API and Admin dashboard routes active.

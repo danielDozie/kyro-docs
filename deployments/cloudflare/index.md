@@ -1,10 +1,10 @@
-# Cloudflare Zero-Touch Kyro CMS Deployment
+# Cloudflare Kyro CMS Deployment
 
-Fast, simple, and automated zero-touch deployment script for hosting **Kyro CMS** on **Cloudflare Workers with Assets** (+ **Cloudflare D1** or **Hyperdrive PostgreSQL** + **Cloudflare R2 Storage**).
+Fast, simple, and automated deployment script for hosting **Kyro CMS** on **Cloudflare Workers with Assets** (+ **Cloudflare D1** or **Hyperdrive PostgreSQL** + **Cloudflare R2 Storage**).
 
 ---
 
-## ⚡ Quick Start (1-Command Deployment)
+## Quick Start (1-Command Deployment)
 
 Run the command in your Kyro CMS project directory:
 
@@ -16,7 +16,7 @@ The CLI will automatically provision your database (Cloudflare D1), create media
 
 ---
 
-## ⚙️ CLI Options & Non-Interactive Mode
+## CLI Options & Non-Interactive Mode
 
 You can pass CLI arguments directly or run in non-interactive mode (`-y`) for automated CI/CD pipelines:
 
@@ -44,7 +44,7 @@ npx kyro deploy cloudflare -d postgres \
 
 ---
 
-## 📁 What Gets Provisioned Automatically?
+## What Gets Provisioned Automatically?
 
 1. **Cloudflare Workers with Assets**: Deploys serverless SSR backend and static Admin UI on a single unified domain (`https://<project-name>.workers.dev`).
 2. **Database Engine**:
@@ -56,7 +56,7 @@ npx kyro deploy cloudflare -d postgres \
 
 ---
 
-## 🔑 Deployment Output Example
+## Deployment Output Example
 
 ```text
 ===========================================================================================

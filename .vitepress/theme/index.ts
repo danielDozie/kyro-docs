@@ -6,7 +6,6 @@ import DocsHome from "./components/DocsHome.vue";
 import VersionBadge from "./components/VersionBadge.vue";
 import CalloutBlock from "./components/CalloutBlock.vue";
 import AnnouncementBanner from "./components/AnnouncementBanner.vue";
-import DeployModal from "./components/DeployModal.vue";
 
 export default {
   extends: DefaultTheme,
@@ -22,6 +21,5 @@ export default {
     app.component("DocsHomePage", DocsHome);
     app.component("VersionBadge", VersionBadge);
     app.component("Callout", CalloutBlock);
-    app.component("DeployModal", DeployModal);
   },
 };

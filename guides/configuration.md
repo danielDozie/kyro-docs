@@ -9,7 +9,7 @@ The `kyro.config.ts` file located at the root of your project is the **single so
 
 ## The `kyro.config.ts` File
 
-When you use the `create-kyro` CLI, a default configuration file is automatically generated for you. If you are integrating Kyro CMS into an existing Astro project, you will create this file manually.
+When you use the `@kyro-cms/create` CLI, a default configuration file is automatically generated for you. If you are integrating Kyro CMS into an existing Astro project, you will create this file manually.
 
 Here is a full example of a configuration file:
 
@@ -47,7 +47,6 @@ export default defineKyroConfig({
 
   // 4. Authentication
   auth: {
-    secret: process.env.KYRO_SECRET || "super-secret-key",
     tokenExpiration: 86400, // 24 hours
   },
 

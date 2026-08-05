@@ -9,7 +9,7 @@ Kyro CMS is built for **Astro** from the ground up. Unlike other CMS solutions t
 
 ## Option 1: Create New Project (Recommended)
 
-The easiest way to start is with the `create-kyro` CLI, which scaffolds a fresh Astro project pre-configured with Kyro CMS, a database adapter, and styling of your choice.
+The easiest way to start is with the `@kyro-cms/create` CLI, which scaffolds a fresh Astro project pre-configured with Kyro CMS, a database adapter, and styling of your choice.
 
 ```bash
 pnpm create @kyro-cms@latest

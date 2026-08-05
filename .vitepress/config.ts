@@ -105,10 +105,21 @@ export default withMermaid(
             ],
           },
           {
+            text: "Deployments",
+            collapsed: false,
+            items: [
+              { text: "Overview", link: "/guides/deployment" },
+              { text: "Cloudflare", link: "/deployments/cloudflare/" },
+              { text: "Vercel", link: "/deployments/vercel/" },
+              { text: "Netlify", link: "/deployments/netlify/" },
+              { text: "Railway", link: "/deployments/railway/" },
+            ],
+          },
+          {
             text: "Developer Tools",
             collapsed: true,
             items: [
-              { text: "create-kyro CLI", link: "/packages/create-kyro" },
+              { text: "@kyro-cms/create", link: "/packages/kyro-create" },
               { text: "@kyro-cms/astro", link: "/packages/kyro-astro" },
               { text: "@kyro-cms/connect", link: "/packages/kyro-connect" },
               { text: "@kyro-cms/kyro-rich-text-react", link: "/packages/kyro-rich-text-react" },

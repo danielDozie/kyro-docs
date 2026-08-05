@@ -291,7 +291,21 @@ const highlightedCode = computed(() => highlightSnippet(codeSamples[activeTab.va
               <span>Explore the platform</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
-            <DeployModal />
+            <span class="btn-cloud-wrap">
+              <span class="btn-outline btn-cloud-disabled" id="hero-cta-cloud" aria-disabled="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="cloud-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#60a5fa"/>
+                      <stop offset="100%" stop-color="#a78bfa"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" stroke="url(#cloud-grad)"/>
+                </svg>
+                <span>Kyro Cloud</span>
+              </span>
+              <span class="coming-soon-badge">Coming soon</span>
+            </span>
           </div>
         </div>
 
@@ -1025,6 +1039,37 @@ const highlightedCode = computed(() => highlightSnippet(codeSamples[activeTab.va
   border-color: var(--ink-3);
   color: var(--ink);
   transform: translateY(-2px);
+}
+
+/* Kyro Cloud disabled button */
+.btn-cloud-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.btn-cloud-disabled {
+  cursor: default;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.btn-cloud-disabled:hover {
+  transform: none;
+}
+.coming-soon-badge {
+  position: absolute;
+  top: -9px;
+  right: -12px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.12);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: 20px;
+  padding: 2px 7px;
+  line-height: 1.3;
+  white-space: nowrap;
 }
 
 /* Quick CLI Snippet Box */

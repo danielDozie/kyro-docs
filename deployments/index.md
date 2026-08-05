@@ -24,7 +24,7 @@ vercel --prod
 
 Required environment variables:
 - `KYRO_DATABASE_URL` - Connection string (PostgreSQL / Neon / MongoDB / SQLite)
-- `KYRO_SECRET` - JWT session signing secret (min 32 chars)
+
 
 > [!NOTE]
 > **Vercel Node.js Serverless vs Edge Runtimes**
@@ -42,7 +42,7 @@ pnpm dlx wrangler pages deploy
 
 Set environment variables in Cloudflare Pages dashboard:
 - `KYRO_DATABASE_URL`
-- `KYRO_SECRET`
+
 
 ---
 
@@ -56,7 +56,7 @@ railway up
 
 Set environment variables in Railway dashboard:
 - `KYRO_DATABASE_URL`
-- `KYRO_SECRET`
+
 
 ---
 
@@ -80,7 +80,7 @@ docker-compose -f docker-compose.prod.yml up -d
 | Variable | Description | Required | Default |
 | :--- | :--- | :---: | :--- |
 | `KYRO_DATABASE_URL` | Database connection string | Yes | — |
-| `KYRO_SECRET` | JWT signing secret (min 32 chars) | Yes | — |
+
 | `KYRO_ADMIN_EMAIL` | Bootstrap admin email | No | `admin@kyro-cms.com` |
 | `KYRO_ADMIN_PASSWORD` | Bootstrap admin password | No | — |
 | `EMAIL_VERIFICATION_REQUIRED` | Set to `false` to disable email OTP / verification checks | No | `true` |

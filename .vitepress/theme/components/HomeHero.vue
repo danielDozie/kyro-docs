@@ -182,7 +182,21 @@ onMounted(() => {
       <div class="actions reveal-item" style="transition-delay: 0.4s">
         <a href="/getting-started" class="btn btn-primary">Get Started</a>
         <a href="/architecture" class="btn btn-ghost">Learn the Architecture</a>
-        <DeployModal />
+        <span class="btn-cloud-wrap">
+          <span class="btn btn-ghost btn-cloud-disabled" aria-disabled="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <defs>
+                <linearGradient id="cloud-grad-hero" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#60a5fa"/>
+                  <stop offset="100%" stop-color="#a78bfa"/>
+                </linearGradient>
+              </defs>
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" stroke="url(#cloud-grad-hero)"/>
+            </svg>
+            Kyro Cloud
+          </span>
+          <span class="coming-soon-badge">Coming soon</span>
+        </span>
       </div>
 
       <!-- Terminal Pill -->
@@ -611,6 +625,38 @@ onMounted(() => {
   border-color: var(--k-border-hover);
   color: var(--k-text-1);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* Kyro Cloud disabled button */
+.btn-cloud-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.btn-cloud-disabled {
+  cursor: default;
+  opacity: 0.55;
+  pointer-events: none;
+  gap: 6px;
+}
+.btn-cloud-disabled:hover {
+  transform: none;
+}
+.coming-soon-badge {
+  position: absolute;
+  top: -9px;
+  right: -12px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.12);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: 20px;
+  padding: 2px 7px;
+  line-height: 1.3;
+  white-space: nowrap;
 }
 
 /* ============================================================

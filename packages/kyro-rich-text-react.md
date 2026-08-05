@@ -53,7 +53,7 @@ The `components` prop accepts an object with two keys:
 
 ```tsx
 import React from 'react';
-import { KyroRichTextRenderer, KyroRichTextComponents } from 'kyro-rich-text-react';
+import { KyroRichTextRenderer, KyroRichTextComponents } from '@kyro-cms/kyro-rich-text-react';
 import Link from 'next/link';
 
 const customComponents: KyroRichTextComponents = {
@@ -126,7 +126,7 @@ export default function BlogPost({ post }) {
 If you use the Tailwind `@tailwindcss/typography` plugin, you don't even need to write custom overrides. You can simply wrap the default headless output in a `.prose` class, and Tailwind will style all the semantic HTML automatically:
 
 ```tsx
-import { KyroRichTextRenderer } from 'kyro-rich-text-react';
+import { KyroRichTextRenderer } from '@kyro-cms/kyro-rich-text-react';
 
 export default function BlogPost({ post }) {
   return (
