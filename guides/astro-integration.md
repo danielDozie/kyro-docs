@@ -107,19 +107,22 @@ Astro Actions (`astro:actions`) handle type-safe server-side form submissions an
 ### Creating an Action (`src/actions/index.ts`):
 
 ```typescript
+import { defineAction } from 'astro:actions';
 import { kyroAction } from '@kyro-cms/astro';
-import { z } from 'zod';
+import { z } from 'astro:schema';
 
 export const server = {
-  submitContact: kyroAction({
-    collection: 'submissions',
-    action: 'create',
-    schema: z.object({
-      name: z.string().min(2),
-      email: z.string().email(),
-      message: z.string().min(10),
-    }),
-  }),
+  submitContact: defineAction(
+    kyroAction({
+      collection: 'submissions',
+      action: 'create',
+      schema: z.object({
+        name: z.string().min(2),
+        email: z.string().email(),
+        message: z.string().min(10),
+      }),
+    })
+  ),
 };
 ```
 

@@ -64,18 +64,21 @@ Type-safe RPC and form submission handler validated against Kyro collection Zod 
 
 ```typescript
 // src/actions/index.ts
+import { defineAction } from 'astro:actions';
 import { kyroAction } from '@kyro-cms/astro';
-import { z } from 'zod';
+import { z } from 'astro:schema';
 
 export const server = {
-  submitContact: kyroAction({
-    collection: 'submissions',
-    action: 'create',
-    schema: z.object({
-      name: z.string().min(2),
-      email: z.string().email(),
-    }),
-  }),
+  submitContact: defineAction(
+    kyroAction({
+      collection: 'submissions',
+      action: 'create',
+      schema: z.object({
+        name: z.string().min(2),
+        email: z.string().email(),
+      }),
+    })
+  ),
 };
 ```
 
