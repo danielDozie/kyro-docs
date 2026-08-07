@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.12.61 (2026-08-08)
+
+- **`defineKyroConfig` Standardization**: Standardized configuration exports on `defineKyroConfig` to prevent collision with Astro/Vite `defineConfig`.
+- **`kyro-app.ts` Core Engine Rebranding**: Rebranded core server initialization from `hono-app.ts` (`HonoAppOptions`) to `kyro-app.ts` (`KyroAppOptions`).
+- **Batched Relationship Population**: Optimized `populateRelationships` to execute single batched `IN` queries per collection depth layer instead of $O(N)$ sequential DB lookups.
+- **Zero-Latency Access Control**: Synchronous reads from cached instance settings in `checkAccessEnabled()` for zero per-request DB overhead.
+- **Non-TTY Terminal Fallback**: Bulletproof Non-TTY CLI execution (`!process.stdout.isTTY` check) and argument parsing in `create-kyro` for headless CI/CD.
+- **Cloudflare Deployment "Coming Soon" Mode**: Disabled direct Cloudflare deploy trigger in Admin UI with visual disabled styling and `COMING SOON` badge while Cloudflare deployment features are undergoing refactoring.
+- **Configurable Logger**: Added level-gated `Logger` utility controlled by `KYRO_LOG_LEVEL` (`debug`, `info`, `warn`, `error`).
+
 ## v0.12.44 (2026-08-04)
 
 - **ESM Code Splitting**: Enabled bundler code-splitting (`splitting: true`), reducing core entrypoint bundle sizes by ~98% to 99.9% (e.g. `api-handler.js` reduced from 2.55 MB to 1.38 KB).

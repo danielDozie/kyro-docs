@@ -28,7 +28,7 @@ export default defineKyroConfig({
 ```
 
 > [!TIP]
-> `createLocalAdapter` automatically handles creating the target directory if needed and lazy-loads database drivers at runtime, preventing Vite bundling issues in Astro.
+> `createLocalAdapter` automatically creates target directories if needed and uses an `AdapterFactory` with dynamic `import()` for zero Vite bundle overhead. Additionally, `LocalAdapter` includes connection handle recovery (`SELECT 1` health checks on `connect()` and state resets on `disconnect()`) to prevent closed-database `ERR_INVALID_STATE` exceptions during hot-reloads.
 
 ---
 

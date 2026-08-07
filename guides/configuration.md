@@ -122,12 +122,12 @@ Configures CORS (Cross-Origin Resource Sharing) policies for the API.
 
 ## Typings and Autocomplete
 
-By wrapping your configuration object in `defineConfig()`, you enable strict TypeScript type-checking and robust autocomplete in your editor. This guarantees that your configuration is valid before you run your app.
+By wrapping your configuration object in `defineKyroConfig()`, you enable strict TypeScript type-checking and robust autocomplete in your editor. This guarantees that your configuration is valid before you run your app. Standardizing on `defineKyroConfig` prevents collisions with Astro or Vite configuration helpers.
 
 ```typescript
-import { defineConfig } from "@kyro-cms/core";
+import { defineKyroConfig } from "@kyro-cms/core";
 
-export default defineConfig({
+export default defineKyroConfig({
   // Your config here...
 });
 ```

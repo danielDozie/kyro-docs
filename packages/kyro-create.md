@@ -57,6 +57,10 @@ npx @kyro-cms/create@latest my-project --template blog --db sqlite --install
 | `-y, --yes` | None | Bypasses all prompt checks and uses default settings |
 | `--help` | None | Lists command parameters |
 
+### Non-TTY & Headless CI/CD Support
+
+`create-kyro` includes automatic Non-TTY terminal detection (`!process.stdout.isTTY`). When running in non-interactive CI/CD runners, automated deployment scripts, or background tasks, `create-kyro` automatically falls back to argument scanning and default settings without hanging on stdin prompts.
+
 ---
 
 ## 4. Programmatic Deployment API

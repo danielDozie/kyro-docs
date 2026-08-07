@@ -2,14 +2,14 @@
 
 This directory contains deployment configurations and setup guides for various hosting platforms.
 
-## Automated CLI Deployment Script
+## Cloudflare Deployment Status
 
-To deploy Kyro CMS with database provisioning (Cloudflare D1 / Hyperdrive PostgreSQL) and R2 storage:
+> [!NOTE]
+> **Cloudflare Automated Deploy (COMING SOON)**
+> Direct 1-click Cloudflare Workers deployment via the Admin UI trigger button is currently marked as **COMING SOON** while undergoing architectural enhancements. For production deployments, self-hosted Docker containers, Railway PostgreSQL, and Node standalone adapters are fully supported.
 
 ```bash
-npx kyro deploy cloudflare
-# or
-pnpm kyro deploy cloudflare
+npx kyro deploy cloudflare # (Coming Soon preview)
 ```
 
 ---
