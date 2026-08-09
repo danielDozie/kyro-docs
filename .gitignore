@@ -2,6 +2,7 @@
 node_modules/
 
 # VitePress build output
+dist/
 .vitepress/dist/
 .vitepress/cache/
 

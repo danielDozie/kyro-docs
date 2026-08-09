@@ -3,6 +3,7 @@ import { withMermaid } from "vitepress-plugin-mermaid";
 
 export default withMermaid(
   defineConfig({
+    outDir: "./dist",
     title: "Kyro CMS",
     description: "Astro-Native Headless CMS with Multi-Database Adapters",
 
