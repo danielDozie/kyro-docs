@@ -89,11 +89,12 @@ Kyro CMS provides a custom widget inside Astro's bottom Dev Toolbar. It lets you
 
 ```javascript
 import { defineConfig } from 'astro/config';
-import { kyroDevToolbarIntegration } from '@kyro-cms/astro';
+import kyro, { kyroDevToolbarIntegration } from '@kyro-cms/astro';
 
 export default defineConfig({
   integrations: [
-    kyroDevToolbarIntegration({ enabled: true }),
+    kyro(),
+    kyroDevToolbarIntegration({ enabled: true }), // Optional dev toolbar widget
   ],
 });
 ```

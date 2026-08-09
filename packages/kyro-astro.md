@@ -21,7 +21,7 @@ pnpm add @kyro-cms/core @kyro-cms/astro
 
 ### 1. Astro Integration (`kyro`)
 
-Configures Vite aliases (`kyro:config`), externalizes native database drivers, and injects REST/GraphQL/tRPC endpoints:
+Configures Vite aliases (`kyro:config`), externalizes native database drivers, auto-mounts the Admin UI, and injects REST/GraphQL/tRPC endpoints:
 
 ```javascript
 // astro.config.mjs
@@ -102,15 +102,18 @@ export const onRequest = kyroAuthMiddleware({
 
 ### 5. Dev Toolbar Widget (`kyroDevToolbarIntegration`)
 
-Registers the Kyro CMS Dev Toolbar widget:
+Registers the optional Kyro CMS Dev Toolbar widget:
 
 ```javascript
 // astro.config.mjs
 import { defineConfig } from 'astro/config';
-import { kyroDevToolbarIntegration } from '@kyro-cms/astro';
+import kyro, { kyroDevToolbarIntegration } from '@kyro-cms/astro';
 
 export default defineConfig({
-  integrations: [kyroDevToolbarIntegration()],
+  integrations: [
+    kyro(),
+    kyroDevToolbarIntegration(), // Optional dev toolbar widget
+  ],
 });
 ```
 

@@ -73,7 +73,7 @@ export default defineKyroConfig({
 });
 ```
 
-By passing this configuration to `createKyroHandler` (for server API endpoints) and the `kyroAdmin()` integration (for the Admin UI), the entire system stays perfectly synchronized.
+By passing this configuration to the `kyro()` integration (which handles both server API endpoints and the Admin UI), the entire system stays perfectly synchronized.
 
 ## System Architecture Overview
 
