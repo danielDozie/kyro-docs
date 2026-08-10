@@ -21,21 +21,22 @@ pnpm add @kyro-cms/core @kyro-cms/astro
 
 ### 1. Astro Integration (`kyro`)
 
-Configures Vite aliases (`kyro:config`), externalizes native database drivers, auto-mounts the Admin UI, and injects REST/GraphQL/tRPC endpoints:
+Configures Vite aliases (`kyro:config`), externalizes native database drivers, and injects REST/GraphQL/tRPC endpoints:
 
 ```javascript
 // astro.config.mjs
 import { defineConfig } from 'astro/config';
 import kyro from '@kyro-cms/astro';
+import { kyroAdmin } from '@kyro-cms/admin/integration';
 
 export default defineConfig({
   integrations: [
     kyro({
       configPath: './kyro.config.ts',
       apiPath: '/api',
-      adminPath: '/admin',
       enableGraphQL: true,
     }),
+    kyroAdmin(),
   ],
 });
 ```

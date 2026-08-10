@@ -126,10 +126,12 @@ Update your `astro.config.mjs` to include the Kyro integration:
 ```js
 import { defineConfig } from "astro/config";
 import kyro from "@kyro-cms/core/integration";
+import { kyroAdmin } from "@kyro-cms/admin/integration";
 
 export default defineConfig({
   integrations: [
-    kyro(), // Auto-mounts API endpoints and the Admin UI at `/admin`
+    kyro(), // Auto-mounts API endpoints
+    kyroAdmin(), // Mounts the Admin UI at `/admin`
   ],
 });
 ```
@@ -137,11 +139,12 @@ export default defineConfig({
 This automatically sets up your API routes and mounts the admin dashboard at `/admin`.
 
 > [!TIP]
-> **Customizing Base Paths:** You can easily change where Kyro CMS mounts its Admin UI and API. In your `astro.config.mjs`, simply pass `adminPath` and `apiPath` options to `kyro()`. All internal links and routes are fully dynamic and will automatically adjust!
+> **Customizing Base Paths:** You can easily change where Kyro CMS mounts its Admin UI and API. In your `astro.config.mjs`, pass `apiPath` and `adminPath` to `kyro()`, and `basePath` and `apiPath` to `kyroAdmin()`. All internal links and routes are fully dynamic and will automatically adjust!
 > ```typescript
 > export default defineConfig({
 >   integrations: [
->     kyro({ adminPath: "/dashboard", apiPath: "/kyro-api" }),
+>     kyro({ apiPath: "/kyro-api" }),
+>     kyroAdmin({ basePath: "/dashboard", apiPath: "/kyro-api" }),
 >   ],
 > });
 > ```

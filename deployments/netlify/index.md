@@ -13,11 +13,12 @@ You can easily deploy your Kyro CMS Astro project to Netlify.
    import { defineConfig } from 'astro/config';
    import netlify from '@astrojs/netlify';
    import kyro from '@kyro-cms/astro';
+   import { kyroAdmin } from '@kyro-cms/admin/integration';
 
    export default defineConfig({
      output: 'server',
      adapter: netlify(),
-     integrations: [kyro()],
+     integrations: [kyro(), kyroAdmin()],
    });
    ```
 3. Push your code to GitHub and connect it to Netlify, or deploy via the Netlify CLI:

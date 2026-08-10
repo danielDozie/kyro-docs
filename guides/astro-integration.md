@@ -23,16 +23,20 @@ The core integration automatically configures Vite aliases (`kyro:config`), exte
 ```javascript
 import { defineConfig } from 'astro/config';
 import kyro from '@kyro-cms/astro';
+import { kyroAdmin } from '@kyro-cms/admin/integration';
 
 export default defineConfig({
   integrations: [
     kyro({
       configPath: './kyro.config.ts', // Path to your Kyro configuration
       apiPath: '/api',                // Base path for REST API endpoints
-      adminPath: '/admin',            // Base path for Admin Dashboard
       enableGraphQL: true,            // Enable GraphQL at /api/graphql
       enableTRPC: false,              // Enable tRPC at /api/trpc
       enableWebSocket: false,         // Enable WebSockets for live subscriptions
+    }),
+    kyroAdmin({
+      basePath: '/admin',             // Base path for Admin Dashboard
+      apiPath: '/api',
     }),
   ],
 });
@@ -90,10 +94,12 @@ Kyro CMS provides a custom widget inside Astro's bottom Dev Toolbar. It lets you
 ```javascript
 import { defineConfig } from 'astro/config';
 import kyro, { kyroDevToolbarIntegration } from '@kyro-cms/astro';
+import { kyroAdmin } from '@kyro-cms/admin/integration';
 
 export default defineConfig({
   integrations: [
     kyro(),
+    kyroAdmin(),
     kyroDevToolbarIntegration({ enabled: true }), // Optional dev toolbar widget
   ],
 });

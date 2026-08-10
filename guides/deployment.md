@@ -64,11 +64,12 @@ Kyro CMS runs natively on Cloudflare Workers and Pages Edge runtimes without nat
    import { defineConfig } from 'astro/config';
    import cloudflare from '@astrojs/cloudflare';
    import kyro from '@kyro-cms/astro';
+   import { kyroAdmin } from '@kyro-cms/admin/integration';
 
    export default defineConfig({
      output: 'server',
      adapter: cloudflare(),
-     integrations: [kyro()],
+     integrations: [kyro(), kyroAdmin()],
    });
    ```
 3. Deploy with Wrangler: `pnpm dlx wrangler pages deploy`
