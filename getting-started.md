@@ -27,8 +27,8 @@ Once complete, `cd` into your project and start the development server:
 
 ```bash
 cd my-kyro-app
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 Visit `http://localhost:4321/admin` to access your new CMS dashboard, and `http://localhost:4321/graphql` for the interactive GraphQL playground.
@@ -125,7 +125,7 @@ Update your `astro.config.mjs` to include the Kyro integration:
 
 ```js
 import { defineConfig } from "astro/config";
-import kyro from "@kyro-cms/core/integration";
+import kyro from "@kyro-cms/astro";
 import { kyroAdmin } from "@kyro-cms/admin/integration";
 
 export default defineConfig({

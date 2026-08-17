@@ -5,7 +5,7 @@ description: Astro native integration package for Kyro CMS containing Content La
 
 # `@kyro-cms/astro`
 
-The `@kyro-cms/astro` package provides native Astro integrations for Kyro CMS. It allows you to query CMS collections using Astro's Content Layer, validate form submissions via Astro Actions, protect routes using Astro Middleware, monitor CMS status in Astro's Dev Toolbar, and render content using Zero-JS `.astro` components.
+The `@kyro-cms/astro` package provides native Astro integrations for Kyro CMS. It requires **Astro 7+** and allows you to query CMS collections using Astro's Content Layer, validate form submissions via Astro Actions, protect routes using Astro Middleware, monitor CMS status in Astro's Dev Toolbar, and render content using Zero-JS `.astro` components.
 
 ---
 

@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.12.66 (2026-08-17)
+
+- **Peer Dependency Update**: Updated `astro` peer dependency to `^7.1.1`, dropping Astro 5 support. Kyro CMS now requires **Astro 7+**.
+- **Package Publishing**: Stable release of `@kyro-cms/core@0.12.66` with all accumulated `v0.12.62`–`v0.12.65` fixes and improvements.
+
+## v0.12.65 (2026-08-15)
+
+- **Bug Fixes & Stability**: Patch release with internal fixes and dependency updates.
+
+## v0.12.64 (2026-08-13)
+
+- **Bug Fixes & Stability**: Patch release with internal fixes and dependency updates.
+
+## v0.12.63 (2026-08-11)
+
+- **Bug Fixes & Stability**: Patch release with internal fixes and dependency updates.
+
+## v0.12.62 (2026-08-10)
+
+- **Bug Fixes & Stability**: Patch release with internal fixes and dependency updates.
+
 ## v0.12.61 (2026-08-08)
 
 - **`defineKyroConfig` Standardization**: Standardized configuration exports on `defineKyroConfig` to prevent collision with Astro/Vite `defineConfig`.

@@ -30,7 +30,7 @@ const posts = await client.collection("posts").find();
 Pass a generic `TRouter` type for end-to-end type safety. Generate it with `kyro generate:types`.
 
 ```ts
-import { createClient } from "kyro-connect";
+import { createClient } from "@kyro-cms/connect";
 import type { KyroAppRouter } from "./kyro.generated";
 
 const client = createClient<KyroAppRouter>({
@@ -318,7 +318,7 @@ const post = await client.$proxy.posts.findByID({ id: "abc123" });
 All failed requests throw a `KyroConnectError` with structured properties.
 
 ```ts
-import { createClient, KyroConnectError } from "kyro-connect";
+import { createClient, KyroConnectError } from "@kyro-cms/connect";
 
 try {
   await client.collection("posts").find();
@@ -343,7 +343,7 @@ import {
   UploadClient,
   KyroClient,
   KyroConnectError,
-} from "kyro-connect";
+} from "@kyro-cms/connect";
 ```
 
 ## Codegen
@@ -383,7 +383,7 @@ Best for: deployment pipelines where the consumer is separate from the CMS serve
 
 ```ts
 // Generated output can be used as:
-import { createClient } from "kyro-connect";
+import { createClient } from "@kyro-cms/connect";
 import type { KyroAppRouter } from "./kyro.generated.d.ts";
 
 const client = createClient<KyroAppRouter>({
