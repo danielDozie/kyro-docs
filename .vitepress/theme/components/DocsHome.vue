@@ -14,7 +14,7 @@ const parallaxProgress = ref(0)
 const archParallaxRef = ref(null)
 const archParallaxProgress = ref(0)
 const copied = ref(false)
-const command = 'npm create kyro@latest'
+const command = 'pnpm create @kyro-cms@latest'
 const activeTab = ref('rest')
 
 /* ── Helpers ── */
@@ -276,7 +276,7 @@ const highlightedCode = computed(() => highlightSnippet(codeSamples[activeTab.va
           <div class="hero-cli-container">
             <button class="hero-cli-box" @click="copyCommand" aria-label="Copy CLI command">
               <span class="cli-prompt">~ $</span>
-              <code class="cli-command">npm create kyro@latest</code>
+              <code class="cli-command">pnpm create @kyro-cms@latest</code>
               <span class="cli-copy-badge">
                 <svg v-if="!copied" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                 <svg v-else width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="copied-check"><polyline points="20 6 9 17 4 12"/></svg>
@@ -645,7 +645,7 @@ const highlightedCode = computed(() => highlightSnippet(codeSamples[activeTab.va
           <code>
             <span class="t-tilde">~</span>
             <span class="t-dollar">$</span>
-            <span class="t-cmd">npm create kyro@latest</span>
+            <span class="t-cmd">pnpm create @kyro-cms@latest</span>
           </code>
         </div>
 

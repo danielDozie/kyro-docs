@@ -5,7 +5,7 @@ import pkg from '../../package.json'
 const versionText = `v${pkg.version}`
 const copied = ref(false)
 const mounted = ref(false)
-const command = 'npm create kyro@latest'
+const command = 'pnpm create @kyro-cms@latest'
 
 const taglineText = 'TypeScript-native headless CMS'
 const displayedTagline = ref(taglineText) // Pre-fill for SSR / SEO

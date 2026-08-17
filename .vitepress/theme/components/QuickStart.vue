@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 
 const copiedStep = ref(null)
-const command = 'npm create kyro@latest'
-const devCommand = 'npm run dev'
+const command = 'pnpm create @kyro-cms@latest'
+const devCommand = 'pnpm dev'
 
 const schemaCode = `import { defineConfig, createLocalAdapter } from '@kyro-cms/core'
 
