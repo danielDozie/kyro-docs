@@ -647,16 +647,17 @@ onMounted(() => {
   top: -9px;
   right: -12px;
   font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #a78bfa;
-  background: rgba(167, 139, 250, 0.12);
-  border: 1px solid rgba(167, 139, 250, 0.25);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--k-text-1);
+  background: var(--k-bg-glass);
+  border: 1px solid var(--k-border-hover);
   border-radius: 20px;
   padding: 2px 7px;
   line-height: 1.3;
   white-space: nowrap;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 /* ============================================================
