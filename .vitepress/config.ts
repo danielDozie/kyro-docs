@@ -12,6 +12,15 @@ export default withMermaid(
     appearance: true,
 
     head: [
+      [
+        "script",
+        {
+          async: "",
+          src: "https://www.sabilytics.com/script.js",
+          "data-site": "fj8ne069hnw4",
+          "data-domain": "kyro-cms.com",
+        },
+      ],
       ["link", { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }],
       ["meta", { name: "theme-color", content: "#09090b" }],
       [
