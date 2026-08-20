@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.12.69 (2026-08-20)
+
+- **Admin Hydration & Client Island Fix**: Standardized admin dashboard Astro pages (`settings/[slug].astro`, `_collection/[id].astro`, `_collection/index.astro`, `graphql.astro`, `graphql-explorer.astro`) to `client:only="react"` to prevent SSR serialization mismatches and hydration failures on interactive components.
+- **Events Dependency Resolution**: Added standard `events` dependency to `@kyro-cms/admin` so Vite and bundlers resolve `EventEmitter` in browser bundles without runtime errors.
+
 ## v0.12.68 (2026-08-20)
 
 - **Integrated Live Preview & JWT Tokens**: Added interactive full-width live preview with signed 1-hour JWT tokens (`?draft=true&kyroToken=<token>`), dynamic `admin.preview` resolvers, live connection overlays, and reload controls.

@@ -9,6 +9,10 @@ Kyro CMS follows [semantic versioning](https://semver.org/). Future breaking cha
 
 ---
 
+## v0.12.69
+
+- **Admin Client Islands**: All Admin Dashboard components rendered in Astro pages should use `client:only="react"` instead of `client:load` to prevent SSR serialization mismatches.
+
 ## v0.12.68
 
 - **Live Preview System**: Full-width interactive preview viewport with signed 1-hour JWT tokens (`?draft=true&kyroToken=<token>`) and custom `admin.preview` resolvers on collections and `collectionOverrides`.
