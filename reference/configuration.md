@@ -173,7 +173,8 @@ Customize the global admin dashboard appearance and behavior.
 | `disable` | `boolean` | `false` | Set to `true` to completely disable the Admin dashboard route |
 | `indexRoute` | `string` | `"/collections"` | Default landing page route path after logging in |
 | `components` | `Record<string, any>` | — | Custom React components to override default admin views |
-| `collectionOverrides` | `Record<string, Partial<AdminConfig> & { fields?: FieldOverrides }>` | — | Customize built-in collection admin options and extend relationships |
+| `collectionOverrides` | `Record<string, CollectionOverrideConfig>` | — | Customize collection settings, inject blocks/tabs, modify fields, and extend relationships |
+| `globalOverrides` | `Record<string, GlobalOverrideConfig>` | — | Customize global schemas, labels, permissions, and field overrides |
 
 ```typescript
 admin: {
@@ -187,9 +188,35 @@ admin: {
   indexRoute: "/collections/pages",
   collectionOverrides: {
     pages: {
+      labels: { singular: "Landing Page", plural: "Landing Pages" },
       fields: {
-        "content.recentFeed.selectedItems": {
-          relationTo: ["posts", "food-menu"],
+        // Direct block path (transparent container traversal)
+        recentFeed: {
+          selectedItems: {
+            relationTo: ["posts", "food-menu"],
+          },
+        },
+        hero: {
+          singleSlide: {
+            ratingText: { type: "text", label: "Rating Text" },
+          },
+        },
+      },
+      // Direct block injection
+      blocks: {
+        customCta: {
+          slug: "customCta",
+          label: "Call to Action",
+          fields: [{ name: "buttonText", type: "text", label: "Button Text" }],
+        },
+      },
+    },
+  },
+  globalOverrides: {
+    "site-settings": {
+      fields: {
+        branding: {
+          logo: { label: "Primary Brand Logo" },
         },
       },
     },

@@ -7,8 +7,6 @@ description: Configure collection-level, field-level, and API key access control
 
 Kyro provides a **unified access control system** shared across all three protocols — REST, GraphQL, and tRPC. The `checkCollectionAccess()` and `checkGlobalAccess()` functions in `src/access/checker.ts` are the single source of truth for every request handler.
 
-<VersionBadge version="0.9.6+" />
-
 ## Collection-Level Access
 
 Configured in `kyro.config.ts` under a collection's `access` property. Each access handler can be a **function** returning a boolean, or a literal **boolean**.

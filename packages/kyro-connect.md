@@ -1,7 +1,5 @@
 # `@kyro-cms/connect`
 
-<VersionBadge version="0.9.7+" />
-
 `@kyro-cms/connect` is the official typed client SDK for Kyro CMS. It provides a fully typed API surface using generic `TRouter` and `CollectionClient<T, F>` types, with GraphQL and file upload support. Runs in Node.js, browsers, Deno, Bun, and edge runtimes.
 
 ---

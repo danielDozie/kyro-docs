@@ -5,8 +5,6 @@ description: Explore the auto-generated GraphQL schema with Relay pagination, ty
 
 # GraphQL API
 
-<VersionBadge version="0.9.3+" />
-
 Kyro CMS generates a **full GraphQL schema** automatically from your collection configuration at startup. The schema is static (built once when the server starts) and uses a **context-based auth** pattern — every resolver receives the authenticated user via the GraphQL context, allowing per-field access control rules to fire seamlessly.
 
 A per-request `RelationLoader` batches relationship resolution across all queries in a single operation, preventing N+1 queries without any manual data loader setup.
@@ -14,10 +12,6 @@ A per-request `RelationLoader` batches relationship resolution across all querie
 ## Naming Conventions
 
 Types use **PascalCase** — `Post`, `PostInput`, `PostWhereInput`. Mutations follow a **verb+Object** pattern: `createPost`, `updatePost`, `deletePost`. Queries use **plural** for list results (`posts`) and **singular** for single document lookup (`post`). The **count pattern** uses `countPosts`. Block types are prefixed with `Block`: `BlockHero`, `BlockCtaBanner`.
-
-<Callout type="tip" title="Migration Note">
-  v0.8 used snake\_case type names like `post_find_result`. v0.9+ uses PascalCase (`PostFindResult`). The old `_find` suffix is replaced by `findAll` and Relay Connection patterns.
-</Callout>
 
 ### Naming Reference
 

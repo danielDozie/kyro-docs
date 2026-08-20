@@ -183,6 +183,42 @@ admin: {
 }
 ```
 
+## Live Preview Configuration (`admin.preview`)
+
+You can attach a custom preview URL generator to any collection or global. Kyro passes the active document and a signed preview token so you can construct authenticated preview paths:
+
+```typescript
+export default defineKyroConfig({
+  collections: [
+    {
+      slug: "products",
+      admin: {
+        preview: (doc, { token }) => `/shop/${doc.slug || doc.id}?draft=true&kyroToken=${token}`,
+      },
+      fields: [/* ... */],
+    },
+  ],
+  // Alternatively, using collectionOverrides:
+  admin: {
+    collectionOverrides: {
+      products: {
+        admin: {
+          preview: (doc, { token }) => `/shop/${doc.slug || doc.id}?draft=true&kyroToken=${token}`,
+        },
+      },
+    },
+  },
+});
+```
+
+When clicked in the Admin UI, the editor switches to a full-width live preview iframe with real-time reload controls (`RefreshCw`) and external tab options (`ExternalLink`).
+
+## Form Layouts & Collapsible Accordions
+
+- **Arrays and Nested Groups**: Array items automatically feature collapsible headers/accordions for compact, distraction-free editing.
+- **Form Entries Mapping**: JSON field types and form entries display formatted, mapped key-value pairs instead of raw JSON payloads.
+- **Action Bar Tab Reset**: The `Edit` / `Version` / `API` tabs strictly reset to `Edit` on document transitions, ensuring a clean editing context.
+
 ## Styling the Admin
 
 If you just want to tweak the colors and branding of the Admin Dashboard, you don't need a plugin. Kyro provides a theming utility:
@@ -294,39 +330,33 @@ Groups support `admin: { inline: true }` to render sub-fields in a horizontal fl
 
 Array fields with 4 or fewer sub-fields that are all primitive types (`text`, `textarea`, `number`, `checkbox`, `select`, `radio`, `color`, `email`, `password`, `code`, `markdown`, `upload`) automatically render as compact inline rows — no accordion, no expand/collapse. Each item appears as a single numbered row with inline fields and a remove button.
 
-## Collection Overrides
+## Collection & Global Overrides
 
-Collection overrides allow you to customize how built-in collections behave without modifying their source definitions. This is especially useful for extending relationships to include user-defined collections, or even appending completely new fields.
+Overrides allow you to customize how built-in template collections and globals behave without modifying their source definitions. This includes extending relationships, customizing labels, injecting custom blocks/tabs, altering layout, and appending new fields.
+
+### Overview: All the Ways Overrides Work
+
+| Method / Mode | Syntax Example | What It Does |
+| :--- | :--- | :--- |
+| **Nested Object Tree** | `menuItem: { internalTarget: { ... } }` | Clean hierarchy mirroring your schema without repeating strings |
+| **Dot-Notation Path** | `"menuItem.internalTarget": { ... }` | Compact single-line targeting for quick one-off overrides |
+| **Transparent Block Traversal** | `hero: { singleSlide: { rating: { ... } } }` | Directly targets blocks without prepending parent `content` field name |
+| **Layout Container Transparency** | `"title": { label: "Main Title" }` | Automatically searches through unnamed `tabs`, `rows`, and `collapsibles` |
+| **Explicit Tab Targeting** | `"tab[Content].title": { ... }` | Disambiguates and targets fields inside specific named tabs |
+| **Array Subfield Granular Patching** | `stats: { label: { placeholder: "100+" } }` | Patches or appends specific subfields inside arrays without redefining all fields |
+| **Dynamic Field Creation** | `subtitle: { type: "text", label: "Subtitle" }` | Appends a brand new field to the container when `type` is present |
+| **Direct Block Injection** | `blocks: { customCta: { slug, label, fields } }` | Appends new custom blocks to a collection's `blocks` field |
+| **Tab Insertion** | `tabs: { "SEO Settings": { fields: [...] } }` | Adds new tabs or wraps a flat collection into a tabbed layout |
+| **Top-Level Settings Merging** | `labels: { singular: "Dish" }, timestamps: true` | Overrides collection metadata, versioning, access control, and hooks |
+| **Global Schema Overrides** | `admin.globalOverrides: { "site-settings": { ... } }` | Applies identical field, block, and tab overrides to global singletons |
 
 > [!TIP]
 > **Modifying and Adding Fields**
-> `collectionOverrides` can be used both to modify properties of **existing** fields and to **append new fields**. If the field path you specify does not exist in the collection, Kyro CMS will automatically append it as a new field at the specified path.
+> Overrides can be used both to modify properties of **existing** fields and to **append new fields**. If the field path you specify does not exist in the collection, Kyro CMS will automatically append it as a new field at the target path (provided a `type` is specified).
 
-### Admin-Level Overrides
+### 1. Flexible Syntax: Nested Objects or Dot-Notation
 
-You can override collection admin properties like icons, columns, and layout:
-
-```typescript
-// kyro.config.ts
-export default defineKyroConfig({
-  admin: {
-    collectionOverrides: {
-      pages: {
-        icon: "FileText",
-        defaultColumns: ["title", "slug", "updatedAt"]
-      },
-      posts: {
-        icon: "Newspaper",
-        group: "Content"
-      }
-    }
-  }
-});
-```
-
-### Field-Level Overrides
-
-Override specific field properties using dot-notation paths. This is particularly useful for extending relationship fields with additional collections:
+You can specify field overrides using either **Nested Object Trees** or classic **Dot-Notation Paths**:
 
 ```typescript
 // kyro.config.ts
@@ -335,167 +365,190 @@ export default defineKyroConfig({
     collectionOverrides: {
       menu: {
         fields: {
-          // Path syntax: "parentField.arrayField.targetField"
-          "menu.menuItem.internalTarget": {
-            relationTo: [
-              "pages",
-              "posts",
-              "trips",           // User-defined collections
-              "destinations",
-              "services"
-            ]
-          }
-        }
-      }
-    }
-  }
+          // Nested object syntax:
+          menuItem: {
+            internalTarget: {
+              relationTo: ["pages", "posts", "food-menu-category"],
+            },
+          },
+          // ...or dot-notation syntax:
+          // "menuItem.internalTarget": { relationTo: ["pages", "posts", "food-menu-category"] }
+        },
+      },
+    },
+  },
 });
 ```
 
-### Path Syntax for Nested Fields
+---
 
-Field override paths use dot notation to navigate through nested field structures:
+### 2. Transparent Structural & Block Traversal
 
-- **Simple field**: `"fieldName"`
-- **Nested in group**: `"groupName.fieldName"`
-- **Nested in array**: `"arrayName.fieldName"`
-- **Multiple levels**: `"groupName.arrayName.fieldName"`
-
-> [!TIP]
-> **Structural UI Wrappers (Tabs, Rows)**
-> If a field is wrapped in a structural layout field like `tabs` or `row`, you **do not** need to include the wrapper's name in your path! Kyro CMS natively traverses through layout wrappers to find your field, mirroring the actual flat database structure.
-> For example, if `content` is inside `tabs`, you still just use `"content"`.
-
-Example with a complex structure:
+You don't need to memorize whether a field is wrapped in `tabs`, `rows`, or a dynamic `blocks` field (like `content`). Kyro transparently navigates through layout containers and block slugs:
 
 ```typescript
-collectionOverrides: {
-  menu: {
-    fields: {
-      // Navigate through: group "menu" → array "menuItem" → field "internalTarget"
-      "menu.menuItem.internalTarget": {
-        relationTo: ["pages", "posts", "custom_collection"]
-      }
-    }
-  }
+pages: {
+  fields: {
+    // Directly target the 'recentFeed' block inside the 'content' blocks field!
+    recentFeed: {
+      selectedItems: {
+        relationTo: ["food-menu", "food-menu-category"],
+      },
+    },
+    // Directly target the 'hero' block and nested 'singleSlide' group
+    hero: {
+      singleSlide: {
+        ratingText: {
+          type: "text",
+          label: "Rating Text",
+        },
+        videoBg: {
+          type: "upload",
+          relationTo: "media",
+          label: "Video Background",
+        },
+      },
+    },
+  },
 }
 ```
 
-### Real-World Example
+---
 
-If you have a Menu collection with guaranteed relationships to pages and posts, but want to allow optional relationships to custom collections:
+### 3. Explicit Tab Selector Syntax (`tab[Name]`)
 
-**1. Collection definition (pages/posts guaranteed):**
+When multiple tabs contain fields with similar names or when you want to target a specific tab unambiguously:
+
 ```typescript
-// src/templates/menu.ts
-export const menuCollection: CollectionConfig = {
-  slug: "menu",
-  fields: [
-    {
-      name: "menu",
-      type: "group",
+pages: {
+  fields: {
+    "tab[Content].title": {
+      label: "Page Headline",
+      admin: { description: "Main H1 title for search engines" },
+    },
+    "tab[Meta].seoDescription": {
+      type: "textarea",
+      label: "Meta Description",
+    },
+  },
+}
+```
+
+---
+
+### 4. Granular Array Subfield Overrides
+
+Modify or append individual subfields inside `array` fields without having to re-declare the entire array schema:
+
+```typescript
+hero: {
+  singleSlide: {
+    stats: {
+      // Modifies just the 'label' subfield inside the stats array
+      label: {
+        label: "Metric Label",
+        placeholder: "e.g. Total Customers",
+      },
+      // Appends a new 'icon' subfield to the stats array
+      icon: {
+        type: "text",
+        label: "Icon Name",
+      },
+    },
+  },
+}
+```
+
+---
+
+### 5. Direct Block Injection (`blocks`)
+
+Append brand new custom blocks directly to a collection's `blocks` field without re-declaring or spreading built-in semantic blocks:
+
+```typescript
+pages: {
+  blocks: {
+    chefStory: {
+      slug: "chefStory",
+      label: "Chef Story Block",
       fields: [
-        {
-          name: "menuItem",
-          type: "array",
-          fields: [
-            {
-              name: "internalTarget",
-              type: "relationship",
-              relationTo: ["pages", "posts"],  // Base required collections
-              admin: {
-                condition: { field: "linkType", equals: "internal" }
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
-};
-```
-
-**2. User extends with custom collections:**
-```typescript
-// kyro.config.ts
-export default defineKyroConfig({
-  admin: {
-    collectionOverrides: {
-      menu: {
-        fields: {
-          // Add your custom collections here
-          "menu.menuItem.internalTarget": {
-            relationTo: ["pages", "posts", "trips", "destinations", "services"]
-          }
-        }
-      }
-    }
-  }
-});
-```
-
-### Overriding Dynamic Content & Blocks Fields (Page Builder)
-
-In collections like `pages` that use a dynamic **Blocks Field** (e.g. `content`), you can extend or override relationship targets and properties for fields inside specific blocks using dot-notation:
-
-`"<blocksFieldName>.<blockSlug>.<fieldInBlock>"`
-
-#### Example: Extending Recent Feed Block Relationships in Pages
-
-If your `pages` collection has a dynamic `content` blocks field containing a `recentFeed` block, you can extend the `selectedItems` relationship field to link to custom collections (such as food menus, categories, or options):
-
-```typescript
-// kyro.config.ts
-import { defineKyroConfig } from "@kyro-cms/core";
-
-export default defineKyroConfig({
-  admin: {
-    collectionOverrides: {
-      pages: {
-        fields: {
-          // Path: blocks field "content" -> block "recentFeed" -> field "selectedItems"
-          "content.recentFeed.selectedItems": {
-            relationTo: [
-              "posts",
-              "food-menu",
-              "food-menu-category",
-              "menu-option-category",
-              "menu-options"
-            ]
-          }
-        }
-      },
-      menu: {
-        fields: {
-          // Path: group field "menu" -> array field "menuItem" -> field "internalTarget"
-          "menu.menuItem.internalTarget": {
-            relationTo: ["pages", "posts", "food-menu-category"]
-          }
-        }
-      }
-    }
-  }
-});
-```
-
-#### How Block Path Navigation Works:
-1. `content`: The root `blocks` field name on the collection.
-2. `recentFeed`: The specific block slug defined inside the blocks field.
-3. `selectedItems`: The target field name inside that block.
-
-### Supported Field Overrides
-
-Any field property can be overridden:
-
-```typescript
-"fieldPath": {
-  relationTo: ["pages", "posts"],        // Relationship fields
-  hidden: true,                          // Visibility
-  readOnly: true,                        // Editability
-  required: false,                       // Validation
-  label: "Custom Label",                 // Display
-  // ... any other field property
+        { name: "heading", type: "text", label: "Heading" },
+        { name: "bio", type: "richText", label: "Biography" },
+        { name: "photo", type: "upload", relationTo: "media", label: "Chef Photo" },
+      ],
+    },
+  },
 }
+```
+
+---
+
+### 6. Tab Insertion Shorthand (`tabs`)
+
+Add new custom tabs to existing collections (or wrap flat collections into tabbed layouts) directly:
+
+```typescript
+pages: {
+  tabs: {
+    "Advanced Settings": {
+      fields: [
+        { name: "customScript", type: "textarea", label: "Header Scripts" },
+        { name: "noIndex", type: "checkbox", label: "Hide from Search Engines" },
+      ],
+    },
+  },
+}
+```
+
+---
+
+### 7. Top-Level Collection Config Merging
+
+Override top-level collection properties (`labels`, `timestamps`, `versions`, `access`, `hooks`, `admin`) directly inside the override object:
+
+```typescript
+products: {
+  labels: { singular: "Dish", plural: "Dishes" },
+  timestamps: true,
+  versions: { drafts: true, maxPerDoc: 20 },
+  admin: {
+    defaultColumns: ["title", "price", "status"],
+    group: "Restaurant",
+  },
+  fields: {
+    category: { admin: { hidden: true } },
+    brand: { admin: { hidden: true } },
+  },
+}
+```
+
+---
+
+### 8. Global Overrides (`admin.globalOverrides`)
+
+Customize global settings (`site-settings`, `header-nav`, `footer-nav`, `access-settings`) using the exact same transparent field and block traversal:
+
+```typescript
+export default defineKyroConfig({
+  admin: {
+    globalOverrides: {
+      "site-settings": {
+        fields: {
+          branding: {
+            logo: { label: "Primary Brand Logo" },
+          },
+        },
+      },
+      "header-nav": {
+        fields: {
+          menuItems: {
+            badge: { type: "text", label: "Menu Item Badge" },
+          },
+        },
+      },
+    },
+  },
+});
 ```
 
 ---
@@ -557,7 +610,7 @@ This writes a structured object directly to your document:
 ```
 You can then retrieve this JSON in your frontend Astro templates to output a fully styled clickable hyperlink.
 
-### Mobile Responsiveness (v0.9.5+)
+### Mobile Responsiveness
 
 The admin dashboard is fully responsive. Key mobile features:
 - **ActionBar**: Single-line toolbar with overflow menu (IconMoreVertical) on mobile. Status dot replaces badge.

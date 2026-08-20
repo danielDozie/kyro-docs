@@ -5,8 +5,6 @@ description: Full reference for the auto-generated REST API — CRUD endpoints, 
 
 # REST API
 
-<VersionBadge version="0.9.3+" />
-
 Kyro CMS auto-generates REST endpoints for every collection at `/api/{slug}`. Globals (singletons) are exposed under `/api/globals/{slug}`.
 
 ## Endpoint Reference
@@ -18,8 +16,10 @@ Kyro CMS auto-generates REST endpoints for every collection at `/api/{slug}`. Gl
 | POST | `/api/{slug}` | Create document |
 | PATCH | `/api/{slug}/:id` | Update document |
 | DELETE | `/api/{slug}/:id` | Delete document |
+| POST | `/api/{slug}/preview-url` | Generate signed live preview URL with 1-hr draft JWT token |
 | GET | `/api/globals/{slug}` | Get global singleton |
 | PATCH | `/api/globals/{slug}` | Update global singleton |
+| POST | `/api/globals/{slug}/preview-url` | Generate signed preview URL for global singleton |
 | POST / GET | `/api/auth/*` | User authentication, session management, password resets & email verification |
 
 ## Query Parameters (List GET)
@@ -31,6 +31,7 @@ Kyro CMS auto-generates REST endpoints for every collection at `/api/{slug}`. Gl
 | `sort` | string | — | Field sort, e.g. `createdAt_desc` |
 | `depth` | number | — | Relationship population depth |
 | `select` | string | — | Field projection (comma-separated) |
+| `search` / `q` | string | — | Full-text query across all searchable string columns (`OR contains`) |
 | `where` | string | — | JSON filter object |
 | `draft` | boolean | — | Version-merge behaviour (see below) |
 

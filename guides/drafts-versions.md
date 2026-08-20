@@ -5,13 +5,7 @@ description: Unified save system with draft/publish workflows, version history, 
 
 # Drafts & Versioning
 
-<VersionBadge version="0.9.0+" />
-
 Kyro CMS provides a built-in versioning system where each document can have multiple versions. The latest version determines the document's status (`draft`, `published`, etc.). The main document table keeps a lightweight `status` column for fast filtering without joining the versions table.
-
-::: warning Breaking Change
-v0.8.x had separate `/drafts`, `/publish`, and `/unpublish` endpoints. These are **removed** in v0.9.0+. All write operations now use the `X-Draft` header pattern described below.
-:::
 
 ## Per-Collection Configuration
 
@@ -128,21 +122,107 @@ mutation {
 
 Queries return published documents by default. Authenticated requests can access draft content via the `draft` argument.
 
-## REST Draft Parameter
+## REST Draft Parameter (`?draft=true` vs `?draft=false`)
 
-The `?draft` query parameter on GET requests offers three-way control:
+The `?draft` query parameter on GET requests controls whether published or draft data is returned:
 
-| Value    | Behaviour |
-|----------|-----------|
-| `true`   | Force draft merge — returns version-merged document |
-| `false`  | Force published — returns published document only |
-| unset    | Default depends on auth: authenticated = version-merged, anonymous = published |
+| Value | Behavior | Access Requirements | Use Case |
+|---|---|---|---|
+| `false` *(or omitted)* | **Published Version Only** — returns the live published document (`status: "published"`). | Public / Anonymous | Default for public website visitors. |
+| `true` | **Latest Working Draft** — returns the latest draft revisions (`status: "draft"` or unpublished changes). | Requires Admin Auth OR valid `&kyroToken=<token>` | Live previews, staging reviews, and editor approvals. |
+
+### What Happens When an Item Has No Draft?
+- **Published with No Pending Edits**: If you query `?draft=true` on a document that is already published and has no working draft, Kyro **automatically falls back to the published record**. You will never get a 404 simply because no draft edits exist.
+- **Draft Only (Never Published)**: If a public visitor queries a draft-only item without `?draft=true`, Kyro filters it out and returns `404 Not Found` to keep unpublished work private.
+- **Collections Without Drafts**: If a collection has `drafts: false`, all saves are immediately live; `?draft=true` and `?draft=false` return the same live record.
+
+## Live Preview & Preview Tokens
+
+Kyro CMS includes an integrated live preview system that allows editors to preview unpublished draft content in full fidelity directly within the Admin UI.
+
+### Live Preview Workflow
+
+1. Click the **Preview** button in the document action bar or press `Cmd/Ctrl + P`.
+2. The editor expands to a **full-width interactive live viewport** embedded directly in the admin.
+3. The server generates a signed preview JWT token (`kyroToken`) valid for 1 hour.
+4. The embedded iframe requests your frontend route with `?draft=true&kyroToken=<token>`, displaying unpublished draft states in real time.
+5. The preview header bar includes a **Reload Preview** button (`RefreshCw`), **Open in New Tab** (`ExternalLink`), and live connecting indicators.
+
+### Customizing the Preview URL in Collections or Overrides
+
+By default, preview URLs resolve to `/:collection/:slug` (or `/:collection/:id`). You can customize this logic directly on the collection definition or via `admin.collectionOverrides`:
+
+```typescript
+// In kyro.config.ts or collection file
+import { defineCollection } from "@kyro-cms/core";
+
+export const Products = defineCollection({
+  slug: "products",
+  admin: {
+    preview: (doc, { token }) => {
+      const identifier = doc.slug || doc.id;
+      return `/menu/${identifier}?draft=true&kyroToken=${token}`;
+    },
+  },
+  fields: [/* ... */],
+});
+```
+
+Or in `collectionOverrides`:
+
+```typescript
+export default defineKyroConfig({
+  admin: {
+    collectionOverrides: {
+      products: {
+        admin: {
+          preview: (doc, { token }) => `/menu/${doc.slug || doc.id}?draft=true&kyroToken=${token}`,
+        },
+      },
+    },
+  },
+});
+```
+
+### Reading Draft Content in Astro Pages
+
+In your Astro page templates, inspect the query parameters and pass `draft` and `token` to the Kyro Client:
+
+```astro
+---
+// src/pages/menu/[slug].astro
+import Layout from "../../layouts/Layout.astro";
+import { client } from "../../lib/kyro";
+
+const { slug } = Astro.params;
+const isDraft = Astro.url.searchParams.get("draft") === "true";
+const kyroToken = Astro.url.searchParams.get("kyroToken");
+
+const product = await client.collection("products").findBySlug(slug, {
+  draft: isDraft,
+  token: kyroToken,
+});
+
+if (!product) {
+  return Astro.redirect("/404");
+}
+---
+
+<Layout title={`${product.name} | Lagos Buka`}>
+  <h1>{product.name}</h1>
+  <p>{product.description}</p>
+  {isDraft && <div class="preview-badge">Live Preview Mode</div>}
+</Layout>
+```
 
 ## Admin UI
 
 When versioning is enabled for a collection, the Admin UI adapts with:
 
 - **Save Draft / Publish buttons** in the ActionBar
-- **Status badges** (`Draft` / `Published`) in list views
-- **Autosave indicator** showing save status
+- **Status badges** (`Draft`, `Published`, `Unpublished Changes`) in list and detail views
+- **Autosave indicator** showing real-time draft status
 - **Version history panel** with preview, compare, and restore
+- **Action Bar View Reset** — switching documents automatically resets the active tab to `Edit`
+
+
