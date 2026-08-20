@@ -9,6 +9,11 @@ Kyro CMS follows [semantic versioning](https://semver.org/). Future breaking cha
 
 ---
 
+## v0.12.67
+
+- **Live Preview System**: Full-width interactive preview viewport with signed 1-hour JWT tokens (`?draft=true&kyroToken=<token>`) and custom `admin.preview` resolvers on collections and `collectionOverrides`.
+- **Global & Collection Overrides**: Added `admin.globalOverrides` and deep object traversal for schema overrides. No breaking changes; backward compatible with existing flat string paths.
+
 ## v0.12.66
 
 - **Astro 7+ Required**: The `astro` peer dependency is now `^7.1.1`. Astro 5 and 6 are no longer supported. Upgrade your project with `pnpm add astro@latest`.

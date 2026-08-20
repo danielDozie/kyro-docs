@@ -1,6 +1,19 @@
 # Changelog
 
-<<<<<<< HEAD
+## v0.12.67 (2026-08-20)
+
+- **Integrated Live Preview & JWT Tokens**: Added interactive full-width live preview with signed 1-hour JWT tokens (`?draft=true&kyroToken=<token>`), dynamic `admin.preview` resolvers, live connection overlays, and reload controls.
+- **Sidepanel Navigation & Tab Reset**: Fixed preview state synchronization on sidepanel item transitions and automated reset of Action Bar tabs to `Edit` on document change.
+- **Transparent Block & Semantic Traversal**: Direct block slug targeting in field overrides (e.g. `hero: { singleSlide: { ... } }`) without requiring outer `content` container nesting.
+- **Nested Object Overrides Syntax**: Full support for defining field overrides as deep nested JavaScript/TypeScript object trees in addition to flat dot-notation paths.
+- **Global Schema Overrides (`globalOverrides`)**: Added `admin.globalOverrides` across core and admin UI for customizing global schemas (`site-settings`, `header-nav`, `footer-nav`, `access-settings`).
+- **Direct Block & Tab Injection**: Direct declaration of `blocks: { ... }` and `tabs: { ... }` in overrides to inject new custom blocks and tabs without modifying template source code.
+- **Granular Array Subfield Overrides**: Individual subfields within array fields can now be patched or appended directly without redefining the entire array definition.
+- **Top-Level Collection Config Merging**: Full support for overriding `labels`, `timestamps`, `versions`, `access`, `hooks`, `admin`, and `seo` directly inside `collectionOverrides`.
+- **Explicit Tab Targeting**: Added `tab[TabName]` / `tabs[TabName]` selector syntax for targeted overrides across tabbed layouts.
+- **Media Serving & Resize Routing Fix**: Reordered route registration in `media-routes.ts` so static `/api/media/resize` and `/api/media/file/*` endpoints take precedence over `/api/media/:id`, fixing broken media library thumbnails in Admin UI.
+- **AVIF Image Format Support**: Added `"avif"` format support to `UploadConfig` and `ImageSize` configurations.
+
 ## v0.12.66 (2026-08-17)
 
 - **Peer Dependency Update**: Updated `astro` peer dependency to `^7.1.1`, dropping Astro 5 support. Kyro CMS now requires **Astro 7+**.
@@ -21,19 +34,6 @@
 ## v0.12.62 (2026-08-10)
 
 - **Bug Fixes & Stability**: Patch release with internal fixes and dependency updates.
-=======
-## v0.12.67 (2026-08-20)
-
-- **Transparent Block & Semantic Traversal**: Direct block slug targeting in field overrides (e.g. `hero: { singleSlide: { ... } }`) without requiring outer `content` container nesting.
-- **Nested Object Overrides Syntax**: Full support for defining field overrides as deep nested JavaScript/TypeScript object trees in addition to flat dot-notation paths.
-- **Global Schema Overrides (`globalOverrides`)**: Added `admin.globalOverrides` across core and admin UI for customizing global schemas (`site-settings`, `header-nav`, `footer-nav`, `access-settings`).
-- **Direct Block & Tab Injection**: Direct declaration of `blocks: { ... }` and `tabs: { ... }` in overrides to inject new custom blocks and tabs without modifying template source code.
-- **Granular Array Subfield Overrides**: Individual subfields within array fields can now be patched or appended directly without redefining the entire array definition.
-- **Top-Level Collection Config Merging**: Full support for overriding `labels`, `timestamps`, `versions`, `access`, `hooks`, `admin`, and `seo` directly inside `collectionOverrides`.
-- **Explicit Tab Targeting**: Added `tab[TabName]` / `tabs[TabName]` selector syntax for targeted overrides across tabbed layouts.
-- **Media Serving & Resize Routing Fix**: Reordered route registration in `media-routes.ts` so static `/api/media/resize` and `/api/media/file/*` endpoints take precedence over `/api/media/:id`, fixing broken media library thumbnails in Admin UI.
-- **AVIF Image Format Support**: Added `"avif"` format support to `UploadConfig` and `ImageSize` configurations.
->>>>>>> 196811d (docs: document new live preview, enhanced form layouts, and expanded collection/global override capabilities)
 
 ## v0.12.61 (2026-08-08)
 
