@@ -9,6 +9,11 @@ Kyro CMS follows [semantic versioning](https://semver.org/). Future breaking cha
 
 ---
 
+## v0.12.70
+
+- **Zero-Config Browser Shims**: `@kyro-cms/admin` automatically injects SSR-aware browser shims into Vite so users do not need manual aliases or `events` polyfills in their `astro.config.mjs`.
+- **Scaffolding CLI**: `create-kyro` now generates boilerplate instantaneously without running package installation during initialization.
+
 ## v0.12.69
 
 - **Admin Client Islands**: All Admin Dashboard components rendered in Astro pages should use `client:only="react"` instead of `client:load` to prevent SSR serialization mismatches.
