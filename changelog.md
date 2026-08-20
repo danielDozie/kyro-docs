@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.12.67 (2026-08-20)
+## v0.12.68 (2026-08-20)
 
 - **Integrated Live Preview & JWT Tokens**: Added interactive full-width live preview with signed 1-hour JWT tokens (`?draft=true&kyroToken=<token>`), dynamic `admin.preview` resolvers, live connection overlays, and reload controls.
 - **Sidepanel Navigation & Tab Reset**: Fixed preview state synchronization on sidepanel item transitions and automated reset of Action Bar tabs to `Edit` on document change.

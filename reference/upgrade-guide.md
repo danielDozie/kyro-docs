@@ -9,7 +9,7 @@ Kyro CMS follows [semantic versioning](https://semver.org/). Future breaking cha
 
 ---
 
-## v0.12.67
+## v0.12.68
 
 - **Live Preview System**: Full-width interactive preview viewport with signed 1-hour JWT tokens (`?draft=true&kyroToken=<token>`) and custom `admin.preview` resolvers on collections and `collectionOverrides`.
 - **Global & Collection Overrides**: Added `admin.globalOverrides` and deep object traversal for schema overrides. No breaking changes; backward compatible with existing flat string paths.
