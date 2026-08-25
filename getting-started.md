@@ -13,6 +13,10 @@ The easiest way to start is with the `@kyro-cms/create` CLI, which scaffolds a f
 
 ```bash
 pnpm create @kyro-cms@latest
+# or
+npm create @kyro-cms@latest
+# or
+bun create @kyro-cms@latest
 ```
 
 This will launch an interactive wizard that asks you a few questions:

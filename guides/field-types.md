@@ -25,17 +25,23 @@ All field types share these configuration options:
 
 ### Admin Options
 
-The `admin` object supports:
+The `admin` object customizes how individual fields appear and behave in the document edit view:
 
 | Option | Type | Description |
 |--------|------|-------------|
-| `readOnly` | `boolean` | Field is visible but not editable |
-| `hidden` | `boolean` | Field is hidden from the admin UI entirely |
-| `placeholder` | `string` | Placeholder text for the input |
-| `description` | `string` | Help text shown below the field |
-| `condition` | `(data) => boolean` | Conditionally show/hide the field |
-| `width` | `string` | CSS width (e.g., `"50%"`) |
-| `columns` | `number` | Grid columns for tab/group layout |
+| `position` | `"sidebar" \| "main"` | Place field in the sticky right sidebar (e.g. status, dates, slug, badges) vs the main column |
+| `readOnly` | `boolean \| Function` | Field is visible and focusable but cannot be edited |
+| `hidden` | `boolean \| Function` | Field is hidden from the admin form UI entirely |
+| `placeholder` | `string` | Placeholder text shown inside empty input fields |
+| `description` | `string` | Explanatory helper text shown beneath the input |
+| `autoGenerate` | `string` | Auto-generate value from another field (e.g. `autoGenerate: "title"` for slugs) |
+| `collapsible` | `boolean` | Enable collapsible accordion header for group fields |
+| `initCollapsed` | `boolean` | Start accordion, group, or array cards closed by default |
+| `display` | `"pills" \| "default"` | Array presentation mode. `"pills"` renders compact inline pill capsules with count multipliers and totals |
+| `inline` | `boolean` | Render group subfields horizontally in a flex row |
+| `condition` | `Function \| Object` | Conditionally show/hide the field based on other field values |
+| `width` | `string` | CSS width constraint (e.g., `"50%"`) |
+| `columns` | `number` | Grid column span for tab/group layouts |
 
 ### Field-Level Access
 

@@ -63,31 +63,17 @@ pnpm add @kyro-cms/connect
 ```typescript
 import { createClient } from "@kyro-cms/connect";
 
-const client = createClient({
-  url: "http://localhost:4321/api/trpc",
-});
+const api = createClient({ url: "http://localhost:4321/api/trpc" });
 
-const posts = await client.posts.find.query({ page: 1 });
-```
+// Query documents
+const { docs: posts } = await api.posts.find({ limit: 10 });
 
-Alternatively with `@trpc/client`:
+// Find document by ID
+const post = await api.posts.findByID({ id: "123" });
 
-```typescript
-import { createTRPCClient } from "@trpc/client";
-import superjson from "superjson";
-
-const client = createTRPCClient({
-  url: "http://localhost:4321/trpc",
-  transformer: superjson,
-});
-
-// Query
-const posts = await client.posts.find.query({ page: 1 });
-
-// Mutation
-const newPost = await client.posts.create.mutate({
-  title: "Hello",
-  slug: "hello",
+// Create document
+const { doc: newPost } = await api.posts.create({
+  data: { title: "Hello World", slug: "hello-world" },
 });
 ```
 

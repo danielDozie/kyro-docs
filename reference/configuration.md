@@ -86,23 +86,24 @@ Each entry in `collections` defines a content type with its own API endpoints, d
 
 ### AdminCollectionConfig
 
-The `admin` property configures how the collection is displayed in the admin UI.
+The `admin` property configures how the collection is displayed and organized in the admin UI and sidebar navigation.
 
 | Option | Type | Description |
 |--------|------|-------------|
-| `useAsTitle` | `string` | The field name to use as the document title in lists and relations |
-| `defaultColumns` | `string[]` | Array of field names to display as columns in the list view |
-| `hidden` | `boolean` | Hide the collection from the sidebar navigation |
-| `description` | `string` | Description text displayed at the top of the collection list |
-| `group` | `string` | Sidebar group name. Collections with the same group are grouped together |
-| `icon` | `string` | Lucide React icon name to display in the sidebar |
-| `order` | `number` | Controls the sorting order of the collection within its sidebar group |
-| `disableDuplicate` | `boolean` | Hide the "Duplicate" button in the admin UI |
-| `disablePreview` | `boolean` | Hide the "Preview" button in the admin UI |
-| `hideAPIURL` | `boolean` | Hide the API endpoint link in the detail view |
+| `group` | `string` | Sidebar group name (e.g. `"Commerce"`, `"Restaurant Menu"`, `"Content"`). Collections with the same group are grouped into a collapsible section. |
+| `folder` | `string` | Alias for `group`. Organizes the collection into a sidebar section. |
+| `order` | `number` | Controls the sorting order of the collection within its sidebar group (lower numbers appear first). |
+| `icon` | `string` | Icon name from [Lucide](https://lucide.dev/icons) (e.g. `"Utensils"`, `"Receipt"`, `"ShoppingBag"`) or [Heroicons](https://heroicons.com/) (e.g. `"hero:Sparkles"`, `"hero-solid:Fire"`). |
+| `useAsTitle` | `string` | The field name to use as the document title in lists, breadcrumbs, and relation dropdowns |
+| `defaultColumns` | `string[]` | Array of field names to display as columns in the list view table |
+| `hidden` | `boolean` | Hide the collection from the sidebar navigation while keeping APIs active |
+| `description` | `string` | Description text displayed beneath the collection title in the admin UI |
+| `disableDuplicate` | `boolean` | Hide the "Duplicate" document button in the edit form |
+| `disablePreview` | `boolean` | Hide the live preview split panel button in the admin UI |
+| `hideAPIURL` | `boolean` | Hide the quick API endpoint link badge in the detail view |
 | `pagination` | `{ defaultLimit?: number, limits?: number[] }` | Page limit configuration for list views |
-| `layout` | `"split" \| "single"` | Edit view layout. Split puts sidebar fields on the right |
-| `preview` | `(doc, options) => string \| Promise<string>` | Preview URL generator — receives document and returns URL |
+| `layout` | `"split" \| "single"` | Edit view layout. `"split"` places sidebar fields on the right, `"single"` creates a full-width column |
+| `preview` | `(doc, options) => string \| Promise<string>` | Preview URL generator — receives document and returns live preview URL |
 
 ## Global Config
 

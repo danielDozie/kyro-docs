@@ -3,6 +3,7 @@ import { ref, reactive, computed, onMounted, onBeforeUnmount } from 'vue'
 import pkg from '../../../package.json'
 import LogoMarquee from './LogoMarquee.vue'
 import ArchitectureDiagram from './ArchitectureDiagram.vue'
+import IntelligenceStudio from './IntelligenceStudio.vue'
 
 const versionText = `v${pkg.version} — What's new`
 
@@ -207,6 +208,8 @@ const bentoFeatures = [
     tags: ['text', 'number', 'checkbox', 'date', 'email', 'password', 'textarea', 'select', 'radio', 'color', 'icon', 'richtext', 'json', 'code', 'upload', 'image', 'markdown', 'relationship', 'array', 'group', 'blocks', 'list', 'row', 'collapsible', 'tabs', 'button', 'action', 'secret']
   },
 ]
+
+
 
 const highlightSnippet = (codeStr) => {
   if (!codeStr) return ''
@@ -530,6 +533,9 @@ const highlightedCode = computed(() => highlightSnippet(codeSamples[activeTab.va
         </div>
       </div>
     </section>
+
+    <!-- ═══════════════ PLATFORM INTELLIGENCE STUDIO ═══════════════ -->
+    <IntelligenceStudio class="dh-reveal" />
 
     <!-- ═══════════════ CODE / APIs ═══════════════ -->
     <section class="dh-ide-section dh-reveal">
@@ -2387,4 +2393,5 @@ const highlightedCode = computed(() => highlightSnippet(codeSamples[activeTab.va
     font-size: 1.4rem;
   }
 }
+
 </style>

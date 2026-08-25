@@ -9,10 +9,34 @@ Kyro CMS follows [semantic versioning](https://semver.org/). Future breaking cha
 
 ---
 
+## v0.13.2
+
+- **Dynamic Icon Rendering Engine (`@kyro-cms/admin`, `@kyro-cms/core`)**: Added `DynamicIcon` component with support for cross-library icon rendering, interactive `IconPickerModal`, icon picker form fields, and updated schema override path traversal logic.
+- **Model Context Protocol Enhancements (`@kyro-cms/mcp`)**: Updated MCP stdio transport, JSON-RPC protocol refinements, schema scaffolding tools, and configuration validation utilities.
+
+## v0.13.1
+
+- **Admin UI Code Splitting & Performance**: Optimized chunk distribution and lazy loading for heavy admin views and dashboards.
+- **Dependency & Package Resolvers**: Improved package installation and workspace dependency linking across monorepo packages.
+
+## v0.13.0
+
+- **Model Context Protocol Server (`@kyro-cms/mcp`)**: New official package enabling LLMs and AI coding agents (Claude Desktop, Cursor, Antigravity) to query collections, mutate documents, inspect schemas, and scaffold Astro components. Add to your project via `pnpm add -D @kyro-cms/mcp`.
+- **Multiplayer Presence & Real-Time Collaboration**: Real-time presence indicators and collaborative awareness are powered by the native WebSocket server. Ensure your Astro adapter supports persistent WebSocket connections (e.g. Node or Cloudflare Durable Objects).
+- **Design Tokens API**: Dynamic CSS and token JSON endpoints are now available under `GET /api/tokens` and `GET /api/tokens.css` without requiring custom route configurations.
+- **Content Health Dashboard**: The audit engine is now available at `/admin/content-health` for real-time SEO, accessibility, and schema health reports.
+
+## v0.12.72
+- **CLI Scaffolding Scope**: Standardized scaffolding package on `@kyro-cms/create`. Projects can now be generated using `pnpm create @kyro-cms@latest`.
+
+## v0.12.71
+
+- **Search & UI Refinements**: Non-breaking maintenance release improving quick search title resolutions and UI dashboard spacing. No migration steps required.
+
 ## v0.12.70
 
 - **Zero-Config Browser Shims**: `@kyro-cms/admin` automatically injects SSR-aware browser shims into Vite so users do not need manual aliases or `events` polyfills in their `astro.config.mjs`.
-- **Scaffolding CLI**: `create-kyro` now generates boilerplate instantaneously without running package installation during initialization.
+- **Scaffolding CLI**: `@kyro-cms/create` now generates boilerplate instantaneously without running package installation during initialization.
 
 ## v0.12.69
 

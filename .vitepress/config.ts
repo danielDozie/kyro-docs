@@ -9,7 +9,7 @@ export default withMermaid(
 
     ignoreDeadLinks: true,
     lastUpdated: true,
-    appearance: true,
+    appearance: "dark",
 
     head: [
       [
@@ -110,6 +110,8 @@ export default withMermaid(
               { text: "Media Storage", link: "/guides/media-storage" },
               { text: "E-Commerce", link: "/guides/ecommerce" },
               { text: "Admin Customization", link: "/guides/admin-customization" },
+              { text: "Design Tokens", link: "/guides/design-tokens" },
+              { text: "Content Health Auditor", link: "/guides/content-health" },
               { text: "Plugins & Extensions", link: "/guides/plugins" },
               { text: "Localization & i18n", link: "/guides/localization" },
             ],
@@ -134,6 +136,7 @@ export default withMermaid(
               { text: "@kyro-cms/connect", link: "/packages/kyro-connect" },
               { text: "@kyro-cms/kyro-rich-text-react", link: "/packages/kyro-rich-text-react" },
               { text: "@kyro-cms/ai", link: "/packages/kyro-ai" },
+              { text: "@kyro-cms/mcp", link: "/packages/kyro-mcp" },
             ],
           },
 

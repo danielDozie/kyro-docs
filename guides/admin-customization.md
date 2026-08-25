@@ -553,6 +553,107 @@ export default defineKyroConfig({
 
 ---
 
+### 9. Collapsible Field Layouts (Groups & Accordion Tabs)
+
+Keep complex edit forms compact and uncluttered by making container fields collapsible:
+
+#### Collapsible Groups
+```typescript
+{
+  name: "shippingAddress",
+  type: "group",
+  label: "Delivery Address",
+  admin: {
+    collapsible: true,     // Renders a clickable accordion header with chevron
+    initCollapsed: true,   // Starts closed by default
+  },
+  fields: [
+    { name: "line1", type: "text", label: "Street" },
+    { name: "city", type: "text", label: "City" },
+    { name: "postalCode", type: "text", label: "Zip" },
+  ],
+}
+```
+
+#### Vertical Accordion Tabs
+By default, `type: "tabs"` renders as a horizontal tab strip. You can convert tabs into vertically stacked collapsible accordion panels:
+
+```typescript
+{
+  type: "tabs",
+  admin: {
+    layout: "accordion",   // Renders vertical accordion drawers instead of horizontal buttons
+    initCollapsed: true,   // All tab panels start closed for a 100% compact overview
+  },
+  tabs: [
+    { label: "General Information", fields: [ /* ... */ ] },
+    { label: "Customer & Delivery", fields: [ /* ... */ ] },
+    { label: "Internal Notes", fields: [ /* ... */ ] },
+  ],
+}
+```
+
+---
+
+### 10. Compact Pills Display for Arrays (`display: "pills"`)
+
+When displaying multi-field line items (such as order items containing product reference, quantity, unit price, and customizations), set `admin.display: "pills"`:
+
+```typescript
+{
+  name: "items",
+  type: "array",
+  label: "Order Items",
+  admin: {
+    readOnly: true,
+    display: "pills", // Renders items as compact inline pill capsules with multipliers & totals
+  },
+  fields: [
+    { name: "name", type: "text", label: "Item Name" },
+    { name: "quantity", type: "number", label: "Qty" },
+    { name: "total", type: "number", label: "Line Total" },
+  ],
+}
+```
+
+This presents each item cleanly formatted like:
+`[ 2× Meat Pie · $8.00 ]`
+
+---
+
+### 11. Sidebar Navigation Icons (`lucide:*` & `hero:*`)
+
+Kyro CMS supports namespaced icon prefixes so you can cleanly specify icons from either **[Lucide](https://lucide.dev/icons)** or **[Heroicons](https://heroicons.com/)**:
+
+```typescript
+export const foodMenuCollection: CollectionConfig = {
+  slug: "food-menu",
+  label: "Food Menu",
+  admin: {
+    group: "Restaurant Menu",
+
+    // 1. Lucide Icons (supports "lucide:Name" or bare "Name")
+    icon: "lucide:Utensils",     // or "lucide:shopping-bag", "Utensils", "Receipt"
+
+    // 2. Heroicons Outline
+    // icon: "hero:Sparkles",    // or "hero:sparkles", "hero-outline:fire"
+
+    // 3. Heroicons Solid
+    // icon: "hero-solid:Fire",  // or "hero-solid:star"
+  },
+  fields: [ /* ... */ ],
+};
+```
+
+| Namespace Prefix | Library | Example |
+| :--- | :--- | :--- |
+| `lucide:<Icon>` | [Lucide Icons](https://lucide.dev/icons) | `"lucide:Utensils"`, `"lucide:ShoppingBag"` |
+| `hero:<Icon>` | [Heroicons Outline](https://heroicons.com/) | `"hero:Sparkles"`, `"hero:ReceiptPercent"` |
+| `hero-solid:<Icon>` | [Heroicons Solid](https://heroicons.com/) | `"hero-solid:Fire"`, `"hero-solid:Star"` |
+| `<Icon>` (bare name) | Automatic Resolution (Lucide &rarr; Heroicons) | `"Utensils"`, `"Receipt"` |
+
+---
+
 ## Interactive Button Fields (Use Cases & Gotchas)
 
 Kyro CMS provides a built-in `"button"` field type that serves two very different functions depending on where and how you configure it. Because of this dual nature, it can sometimes be a source of confusion.

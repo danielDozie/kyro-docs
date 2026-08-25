@@ -80,33 +80,67 @@ access: {
 > [!TIP]
 > Since roles are numeric, comparisons use standard operators (`>=`, `>`, `<=`). `super_admin` (100) always has unrestricted access and bypasses field-level access checks by default.
 
-## Field-Level Access
+## Field-Level Access Control
 
-Individual fields can have their own `access` property to restrict read or update operations:
+Kyro CMS supports granular field-level access control. Individual fields within any collection or global singleton can define their own `access` object containing `read`, `create`, and `update` predicate functions:
 
-```ts
-fields: [
-  {
-    name: "email",
-    type: "email",
-    access: {
-      read: ({ doc, user }) => user.role >= 70, // editors+
-      update: ({ doc, user }) => doc.id === user.id, // own document only
+```typescript
+import { defineKyroConfig, defineField } from "@kyro-cms/core";
+
+export default defineKyroConfig({
+  collections: [
+    {
+      slug: "employees",
+      fields: [
+        {
+          name: "fullName",
+          type: "text",
+          required: true,
+          // Publicly readable, editable by HR/admins
+          access: {
+            read: true,
+            update: ({ user }) => user?.role >= 70,
+          },
+        },
+        {
+          name: "salary",
+          type: "number",
+          required: true,
+          // Only visible to the employee themselves or super admins
+          access: {
+            read: ({ doc, user }) => user?.role === "super_admin" || doc?.userId === user?.id,
+            update: ({ user }) => user?.role === "super_admin",
+          },
+        },
+        {
+          name: "internalNotes",
+          type: "textarea",
+          // Completely hidden from public API and non-admin requests
+          access: {
+            read: ({ user }) => user?.role >= 90,
+            update: ({ user }) => user?.role >= 90,
+          },
+        },
+      ],
     },
-  },
-  {
-    name: "salary",
-    type: "number",
-    access: {
-      read: false, // never exposed
-      update: ({ user }) => user.role >= 90, // admins only
-    },
-  },
-]
+  ],
+});
 ```
 
-> [!WARNING]
-> Field-level `read: false` completely removes the field from API responses, regardless of user role. Only `super_admin` bypasses this restriction.
+### Zero-Latency Response Masking
+
+When documents are retrieved via REST (`GET /api/:collection/:id`), GraphQL, or tRPC, Kyro's engine performs synchronous, zero-latency response masking before returning the payload to the client.
+
+- **Non-Permitted Read Fields**: Any field where `access.read()` evaluates to `false` is completely stripped from the output JSON payload. The client receives no trace of the field name or value.
+- **Non-Permitted Update Fields**: If a client sends an update payload containing restricted fields (`access.update() === false`), those fields are ignored or rejected, preventing unauthorized parameter tampering.
+
+### Access Predicate Signatures
+
+| Hook | Signature | Description |
+| :--- | :--- | :--- |
+| `read` | `({ doc, user, req }) => boolean \| Promise<boolean>` | Determines if field is included in query responses. |
+| `update` | `({ doc, data, user, req }) => boolean \| Promise<boolean>` | Determines if field accepts mutations during update calls. |
+| `create` | `({ data, user, req }) => boolean \| Promise<boolean>` | Determines if field accepts initial values during creation. |
 
 ## API Key RBAC
 

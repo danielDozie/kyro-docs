@@ -1,14 +1,11 @@
 ---
 title: Kyro AI
-description: Enhance your CMS with AI-powered SEO generation and assistant capabilities.
+description: Enhance your CMS with AI-powered SEO generation, Vision AI accessibility alt-text, semantic vector embeddings, and assistant capabilities.
 ---
 
 # `@kyro-cms/ai`
 
-The `@kyro-cms/ai` package provides deep AI integration into Kyro CMS, powered by the Vercel AI SDK. It allows you to easily inject automated SEO metadata generation and a floating conversational AI assistant into your admin panel.
-
-> [!IMPORTANT]
-> **Early Development Stage**: The `@kyro-cms/ai` package is currently in active early development. APIs, plugin interfaces, and provider capabilities are subject to refinement in upcoming releases.
+The `@kyro-cms/ai` package provides a unified AI and machine learning extension suite for Kyro CMS, powered by the Vercel AI SDK. It enables automated SEO metadata generation, Vision AI alt-text generation for uploaded media, natural language collection schema synthesis, conversational administrative assistants, and vector embeddings pipelines for semantic similarity search.
 
 ## Installation
 
@@ -16,47 +13,155 @@ The `@kyro-cms/ai` package provides deep AI integration into Kyro CMS, powered b
 pnpm add @kyro-cms/ai ai
 ```
 
-You will also need to install the AI provider SDK of your choice (e.g. `@ai-sdk/groq`, `@ai-sdk/openai`, or `@ai-sdk/anthropic`).
+Depending on your model provider, install the corresponding provider SDK:
 
-## Plugins
+```bash
+# Groq (Recommended for rapid inference)
+pnpm add @ai-sdk/groq
 
-### 1. AiAutoSeoPlugin
+# OpenAI (For GPT-4o, GPT-4o-mini, text-embedding-3)
+pnpm add @ai-sdk/openai
 
-This plugin listens to document creations and updates. If the target collections contain empty SEO fields (like `metaTitle` and `metaDescription`), it will automatically generate highly optimized SEO copy based on the document's content. It also natively supports extracting content from Kyro's rich text fields.
+# Anthropic (For Claude 3.5 Sonnet)
+pnpm add @ai-sdk/anthropic
+```
 
-#### Configuration
+## Available Plugins & Capabilities
 
-In your `kyro.config.ts`, initialize the plugin and provide your preferred AI model:
+### 1. `AiAutoSeoPlugin`
+
+Listens to document creation and mutation lifecycle events. When target collections contain empty SEO fields (such as `metaTitle` and `metaDescription`), the plugin extracts plain text from document content (including rich-text blocks) and synthesizes optimal meta descriptions and titles.
+
+#### Configuration Example
 
 ```typescript
 import { defineKyroConfig } from "@kyro-cms/core";
 import { AiAutoSeoPlugin } from "@kyro-cms/ai";
 import { createGroq } from "@ai-sdk/groq";
 
-// Using Groq for blazingly fast inference
 const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
 export default defineKyroConfig({
-  // ...
   plugins: [
     new AiAutoSeoPlugin({
       collections: ["posts", "pages", "products"],
       provider: groq,
       modelName: "llama-3.1-8b-instant",
+      titleField: "title",
+      contentField: "content",
+      seoFieldPrefix: "seo", // Targets seo.metaTitle and seo.metaDescription
     }),
   ],
 });
 ```
 
-> **Note on Providers:** We strongly recommend using the provider's native SDK (e.g., `createGroq` from `@ai-sdk/groq`) rather than the OpenAI compatibility layer, as native SDKs gracefully handle fallback mechanisms when strict `json_schema` parsing is unsupported by the model.
+---
 
-### 2. AiAssistantPlugin
+### 2. Vision AI Alt-Text Generator
 
-This plugin injects a conversational AI assistant directly into the Kyro Admin UI. Content editors can ask the assistant for help generating copy, outlining blog posts, or brainstorming ideas.
+The Media Gallery includes native integration with Vision AI models. When media assets are uploaded, editors can click the **Generate with AI** button to automatically generate descriptive alt-text and accessibility tags.
 
-#### Configuration
+#### Programmatic Usage
+
+```typescript
+import { generateImageAltText } from "@kyro-cms/ai";
+import { createOpenAI } from "@ai-sdk/openai";
+
+const openai = createOpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const result = await generateImageAltText({
+  imageUrl: "https://example.com/uploads/product-hero.webp",
+  provider: openai,
+  modelName: "gpt-4o-mini",
+  context: "E-commerce product catalog thumbnail",
+});
+
+console.log(result.altText);
+// Output: "Top-down view of ceramic pour-over coffee dripper on wooden countertop"
+```
+
+---
+
+### 3. `AiVectorPlugin` & Semantic Search
+
+Automatically converts text fields into dense vector embeddings upon document creation or update, enabling natural language semantic search across your content collections.
+
+#### Configuration Example
+
+```typescript
+import { defineKyroConfig } from "@kyro-cms/core";
+import { AiVectorPlugin } from "@kyro-cms/ai";
+
+export default defineKyroConfig({
+  collections: [
+    {
+      slug: "articles",
+      fields: [
+        { name: "title", type: "text", required: true },
+        { name: "body", type: "richtext", required: true },
+        {
+          name: "embedding",
+          type: "embedding",
+          dimensions: 1536,
+          provider: "openai",
+          sourceField: "body",
+        },
+      ],
+    },
+  ],
+  plugins: [
+    new AiVectorPlugin({
+      collections: ["articles"],
+      targetField: "embedding",
+      sourceField: "body",
+      apiKey: process.env.OPENAI_API_KEY,
+      modelName: "text-embedding-3-small",
+    }),
+  ],
+});
+```
+
+#### Querying Semantic Search API
+
+Once configured, Kyro exposes a dedicated cosine similarity search endpoint:
+
+```bash
+# Search articles semantically
+curl -X POST "http://localhost:4321/api/articles/semantic-search" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "how to improve web vitals and initial page load",
+    "limit": 5,
+    "threshold": 0.75
+  }'
+```
+
+**Response Format:**
+
+```json
+{
+  "results": [
+    {
+      "id": "104",
+      "title": "Optimizing Astro Island Hydration for LCP",
+      "similarity": 0.892,
+      "document": { ... }
+    }
+  ]
+}
+```
+
+---
+
+### 4. `AiAssistantPlugin`
+
+Mounts a contextual editorial assistant drawer inside the Kyro Admin Dashboard. Content editors can request content outlines, summaries, or copy refinement directly while editing documents.
+
+#### Configuration Example
 
 ```typescript
 import { defineKyroConfig } from "@kyro-cms/core";
@@ -68,12 +173,33 @@ const groq = createGroq({
 });
 
 export default defineKyroConfig({
-  // ...
   plugins: [
     new AiAssistantPlugin({
       provider: groq,
-      modelName: "llama-3.1-8b-instant",
+      modelName: "llama-3.3-70b-versatile",
+      systemPrompt: "You are an expert editorial assistant for technical blogs.",
     }),
   ],
 });
+```
+
+---
+
+### 5. Prompt-to-Schema Synthesis
+
+Generate complete `kyro.config.ts` collection schemas from natural language requirements.
+
+```typescript
+import { generateKyroSchemaFromPrompt } from "@kyro-cms/ai";
+import { createOpenAI } from "@ai-sdk/openai";
+
+const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+const schemaCode = await generateKyroSchemaFromPrompt({
+  prompt: "Create a restaurant menu schema with categories, allergen badges, price, and dietary tags.",
+  provider: openai,
+  modelName: "gpt-4o",
+});
+
+console.log(schemaCode);
 ```

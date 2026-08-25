@@ -10,6 +10,10 @@ To start the interactive prompt, execute:
 
 ```bash
 pnpm create @kyro-cms@latest my-cms-project
+# or
+npm create @kyro-cms@latest my-cms-project
+# or
+bun create @kyro-cms@latest my-cms-project
 ```
 
 ### Supported Package Managers
@@ -27,15 +31,15 @@ When launched, `@kyro-cms/create` guides you through a series of structural conf
 
 1.  **Project Location**: Specify the directory to initialize (defaults to the current path `./`).
 2.  **Starter Template Selection**:
+    *   `Minimal`: Scaffolds a single, simple collection with a title and content field for custom builds.
     *   `Blog`: Configures collections for pages, articles, authors, and tag metadata.
     *   `E-commerce`: Sets up products, variants, orders, inventories, and customer accounts.
-    *   `Minimal`: Scaffolds a single, simple collection with a title and content field for custom builds.
     *   `Kitchen Sink`: Registers every available collection and template for discovery.
 3.  **Database Selection**:
     *   `SQLite (Local)`: Automatically sets up Node's native `DatabaseSync` for immediate offline dev.
     *   `PostgreSQL`: Scaffolds a Drizzle Postgres schema structure.
     *   `MongoDB`: Pre-sets environment variables and configurations for NoSQL.
-4.  **Auto-Install Dependencies**: Opt-in to install all `package.json` dependencies automatically.
+4.  **Admin Email**: Enter the super-admin email to initialize local administrator credentials.
 
 ---
 
@@ -44,7 +48,7 @@ When launched, `@kyro-cms/create` guides you through a series of structural conf
 You can bypass interactive prompts by passing direct flags:
 
 ```bash
-npx @kyro-cms/create@latest my-project --template blog --db sqlite --install
+npx @kyro-cms/create@latest my-project --template blog --db sqlite --yes
 ```
 
 ### Available Command Parameters
@@ -53,13 +57,12 @@ npx @kyro-cms/create@latest my-project --template blog --db sqlite --install
 | :--- | :--- | :--- |
 | `-t, --template` | `blog`, `ecommerce`, `minimal`, `kitchen-sink` | Selection for starting collection structures |
 | `-d, --db` | `sqlite`, `postgres`, `mongodb` | Selection of database adapter configuration |
-| `-i, --install` | None | Installs npm dependencies automatically |
 | `-y, --yes` | None | Bypasses all prompt checks and uses default settings |
 | `--help` | None | Lists command parameters |
 
 ### Non-TTY & Headless CI/CD Support
 
-`create-kyro` includes automatic Non-TTY terminal detection (`!process.stdout.isTTY`). When running in non-interactive CI/CD runners, automated deployment scripts, or background tasks, `create-kyro` automatically falls back to argument scanning and default settings without hanging on stdin prompts.
+`@kyro-cms/create` includes automatic Non-TTY terminal detection (`!process.stdout.isTTY`). When running in non-interactive CI/CD runners, automated deployment scripts, or background tasks, `@kyro-cms/create` automatically falls back to argument scanning and default settings without hanging on stdin prompts.
 
 ---
 
