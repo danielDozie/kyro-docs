@@ -5,6 +5,10 @@ description: First-class Model Context Protocol server enabling AI assistants to
 
 # `@kyro-cms/mcp`
 
+::: warning Experimental / Beta
+`@kyro-cms/mcp` is in active development. Tools, prompt templates, and resource URIs (`kyro://...`) will evolve as the Model Context Protocol ecosystem standardizes.
+:::
+
 The `@kyro-cms/mcp` package provides an official Model Context Protocol (MCP) server for Kyro CMS. It allows AI development tools—including Claude Desktop, Cursor, Antigravity, and GitHub Copilot—to interface directly with your content models, schemas, and live database adapters.
 
 ## Overview

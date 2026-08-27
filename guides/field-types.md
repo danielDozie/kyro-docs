@@ -949,6 +949,39 @@ IconConfig: {
 
 ---
 
+## embedding <Badge type="warning" text="Experimental" />
+
+Native vector embedding field for semantic search, recommendation engines, and AI RAG pipelines.
+
+```ts
+EmbeddingConfig: {
+  type: 'embedding',
+  sourceField: string,
+  provider?: 'openai' | 'cohere' | 'groq' | 'local-fastembed',
+  model?: string,
+  dimensions?: number
+}
+```
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `sourceField` | `string` | *(required)* | Field name whose content is converted to vector embeddings |
+| `provider` | `string` | `'openai'` | Embedding provider (`'openai'`, `'cohere'`, `'groq'`, `'local-fastembed'`) |
+| `model` | `string` | `undefined` | Specific model ID (e.g. `'text-embedding-3-small'`) |
+| `dimensions` | `number` | `1536` | Vector embedding dimension size |
+
+```ts
+{
+  name: "articleEmbedding",
+  type: "embedding",
+  sourceField: "content",
+  provider: "openai",
+  dimensions: 1536
+}
+```
+
+---
+
 ## Comparison Guide
 
 | Need | Use |

@@ -135,8 +135,8 @@ export default withMermaid(
               { text: "@kyro-cms/astro", link: "/packages/kyro-astro" },
               { text: "@kyro-cms/connect", link: "/packages/kyro-connect" },
               { text: "@kyro-cms/kyro-rich-text-react", link: "/packages/kyro-rich-text-react" },
-              { text: "@kyro-cms/ai", link: "/packages/kyro-ai" },
-              { text: "@kyro-cms/mcp", link: "/packages/kyro-mcp" },
+              { text: "@kyro-cms/ai (Experimental)", link: "/packages/kyro-ai" },
+              { text: "@kyro-cms/mcp (Experimental)", link: "/packages/kyro-mcp" },
             ],
           },
 

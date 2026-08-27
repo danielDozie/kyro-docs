@@ -2,6 +2,11 @@
 
 All notable changes to **Kyro CMS** are documented here.
 
+## v0.13.3 (2026-08-25)
+
+- **Auth Adapter Enhancements (`@kyro-cms/core`)**: Standardized multi-database authentication adapters (PostgreSQL, SQLite, Cloudflare D1, MongoDB, Redis, In-Memory) with support for role assignments, password policies, session revocation, and security audit log streams.
+- **Scaffolding CLI & Database Guidance (`@kyro-cms/create` v0.12.73)**: Enhanced terminal guidance for database connection strings (`DATABASE_URL`, `MONGODB_URI`), prompt descriptions, generated project `tsconfig.json` (`moduleResolution: "bundler"`, `skipLibCheck: true`), and dynamic next steps.
+
 ## v0.13.2 (2026-08-24)
 
 - **Dynamic Icon Rendering Engine (`@kyro-cms/admin`, `@kyro-cms/core`)**: Added `DynamicIcon` component with support for cross-library icon rendering, interactive `IconPickerModal`, icon picker form fields, and updated schema override path traversal logic.

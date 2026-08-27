@@ -120,6 +120,25 @@ Configures CORS (Cross-Origin Resource Sharing) policies for the API.
 - `locales`: An array of locale strings (e.g., `['en', 'es', 'fr']`).
 - `defaultLocale`: The default locale string.
 
+### `experimental`
+Optional flags to opt into bleeding-edge features undergoing active development:
+- `websockets`: Enable WebSocket real-time engine and presence synchronization.
+- `aiAssistant`: Enable AI Assistant and LLM writing copilot integrations.
+- `vectorSearch`: Enable vector embeddings pipeline and `/semantic-search` endpoint.
+- `designTokens`: Enable dynamic design token compilation (`/api/tokens.css`).
+- `visualCanvas`: Enable live Astro Island preview canvas.
+
+```typescript
+export default defineKyroConfig({
+  // ...
+  experimental: {
+    websockets: true,
+    aiAssistant: true,
+    vectorSearch: true,
+  },
+});
+```
+
 ## Typings and Autocomplete
 
 By wrapping your configuration object in `defineKyroConfig()`, you enable strict TypeScript type-checking and robust autocomplete in your editor. This guarantees that your configuration is valid before you run your app. Standardizing on `defineKyroConfig` prevents collisions with Astro or Vite configuration helpers.

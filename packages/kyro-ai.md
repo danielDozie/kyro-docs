@@ -5,6 +5,10 @@ description: Enhance your CMS with AI-powered SEO generation, Vision AI accessib
 
 # `@kyro-cms/ai`
 
+::: warning Experimental / Beta
+`@kyro-cms/ai` is under active development. LLM model provider interfaces, prompt synthesis helpers, and vector pipeline contracts are subject to change between minor releases.
+:::
+
 The `@kyro-cms/ai` package provides a unified AI and machine learning extension suite for Kyro CMS, powered by the Vercel AI SDK. It enables automated SEO metadata generation, Vision AI alt-text generation for uploaded media, natural language collection schema synthesis, conversational administrative assistants, and vector embeddings pipelines for semantic similarity search.
 
 ## Installation
