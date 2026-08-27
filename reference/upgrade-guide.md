@@ -9,6 +9,22 @@ Kyro CMS follows [semantic versioning](https://semver.org/). Future breaking cha
 
 ---
 
+## v0.13.4
+
+- **Experimental Feature Configuration (`@kyro-cms/core`)**: You can now explicitly configure experimental features via the `experimental` property in `defineKyroConfig`:
+  ```typescript
+  export default defineKyroConfig({
+    // ...
+    experimental: {
+      websockets: true,
+      aiAssistant: true,
+      vectorSearch: true,
+      designTokens: true,
+    },
+  });
+  ```
+- **Experimental Packages (`@kyro-cms/mcp` v0.13.2, `@kyro-cms/ai` v0.13.1)**: Packages have been tagged with experimental status. No breaking changes or migration steps are required for existing installations.
+
 ## v0.13.2
 
 - **Dynamic Icon Rendering Engine (`@kyro-cms/admin`, `@kyro-cms/core`)**: Added `DynamicIcon` component with support for cross-library icon rendering, interactive `IconPickerModal`, icon picker form fields, and updated schema override path traversal logic.

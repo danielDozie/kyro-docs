@@ -2,6 +2,12 @@
 
 All notable changes to **Kyro CMS** are documented here.
 
+## v0.13.4 (2026-08-27)
+
+- **Experimental Feature Flagging & Config (`@kyro-cms/core` v0.13.4)**: Introduced typed `ExperimentalConfig` in `KyroConfig` allowing opt-in activation of active development features (`websockets`, `aiAssistant`, `vectorSearch`, `designTokens`, `visualCanvas`). Added `@experimental` JSDoc annotations to `EmbeddingField` and real-time engine components.
+- **Model Context Protocol Status & Metadata (`@kyro-cms/mcp` v0.13.2)**: Tagged package as experimental tracking MCP specification updates, added status notices and TypeScript declaration mapping improvements.
+- **AI Plugin Suite Status & Guidance (`@kyro-cms/ai` v0.13.1)**: Tagged AI extension suite as experimental to reflect rapid LLM provider SDK iteration cycles.
+
 ## v0.13.3 (2026-08-25)
 
 - **Auth Adapter Enhancements (`@kyro-cms/core`)**: Standardized multi-database authentication adapters (PostgreSQL, SQLite, Cloudflare D1, MongoDB, Redis, In-Memory) with support for role assignments, password policies, session revocation, and security audit log streams.
