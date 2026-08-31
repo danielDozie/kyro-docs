@@ -2,6 +2,12 @@
 
 All notable changes to **Kyro CMS** are documented here.
 
+## v0.13.5 (2026-08-31)
+
+- **Modular Sidebar Architecture (`@kyro-cms/admin` v0.13.3)**: Refactored `Sidebar.astro` monolith into modular sub-components (`SidebarHeader`, `ProjectSwitcher`, `SidebarNav`, `SidebarNavItem`, `SidebarIcon`, `SidebarFooter`, `sidebar-client.ts`), eliminating redundant polling intervals and streamlining multi-namespace icon resolution.
+- **Content Health Diagnostics & Live Link Engine (`@kyro-cms/core` v0.13.5, `@kyro-cms/admin` v0.13.3)**: Added live link & URL validation across `url`, `richtext`, and `textarea` fields; enhanced audit report with dynamic `collectionScores`; added Categories vs Collections view toggle and collection filtering to `/admin/content-health`.
+- **Scaffolding CLI & `.env` Compatibility (`@kyro-cms/create` v0.12.74)**: Excluded `#` character from super_admin password generation and double-quoted credential variables in `.env` scaffolding to prevent comment truncation in standard environment parsers.
+
 ## v0.13.4 (2026-08-27)
 
 - **Experimental Feature Flagging & Config (`@kyro-cms/core` v0.13.4)**: Introduced typed `ExperimentalConfig` in `KyroConfig` allowing opt-in activation of active development features (`websockets`, `aiAssistant`, `vectorSearch`, `designTokens`, `visualCanvas`). Added `@experimental` JSDoc annotations to `EmbeddingField` and real-time engine components.

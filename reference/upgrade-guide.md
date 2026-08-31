@@ -9,6 +9,12 @@ Kyro CMS follows [semantic versioning](https://semver.org/). Future breaking cha
 
 ---
 
+## v0.13.5
+
+- **Modular Sidebar Architecture (`@kyro-cms/admin` v0.13.3)**: `Sidebar.astro` has been decomposed into dedicated sub-components (`SidebarHeader`, `ProjectSwitcher`, `SidebarNav`, `SidebarNavItem`, `SidebarIcon`, `SidebarFooter`, and `sidebar-client.ts`). No migration steps or manual import updates are required.
+- **Live Content Health Diagnostics (`@kyro-cms/core` v0.13.5, `@kyro-cms/admin` v0.13.3)**: Real-time link validation and dynamic collection scoring are automatically enabled on `/admin/content-health`.
+- **Scaffolding CLI Update (`@kyro-cms/create` v0.12.74)**: Generated `.env` files now format string credentials safely with double quotes, and generated passwords exclude `#` characters for parser compatibility.
+
 ## v0.13.4
 
 - **Experimental Feature Configuration (`@kyro-cms/core`)**: You can now explicitly configure experimental features via the `experimental` property in `defineKyroConfig`:
