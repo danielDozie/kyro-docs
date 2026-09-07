@@ -2,6 +2,13 @@
 
 All notable changes to **Kyro CMS** are documented here.
 
+## v0.13.6 (2026-09-08)
+
+- **Field Normalization & Helper Consolidation (`@kyro-cms/core` v0.13.6)**: Centralized recursive wrapper field flattening (`flattenFields`) and nested dynamic blocks upload normalization (`processBlocksUploadFields`) into `@kyro-cms/core/utils/field-helpers`, deduplicating schema processing across local SQLite, Drizzle schema mapper, and Zod validation builders.
+- **Enhanced URL Auditing (`@kyro-cms/core` v0.13.6)**: Extended content health diagnostics to automatically detect and validate URLs in text fields declaring `format: 'url'` or following URL/link naming conventions alongside native `url` field types.
+- **Admin Table & List View Standardization (`@kyro-cms/admin` v0.13.4)**: Extracted centralized `flattenAdminFields` utility across `ListView` and `CompactListView` to ensure consistent handling of layout wrappers (`tabs`, `row`, `collapsible`) and strict filtering of hidden and internal ID fields.
+- **Admin Performance & Lazy Component Loading (`@kyro-cms/admin` v0.13.4)**: Refactored heavy form controls (`RichTextField` TipTap editor and `IconPickerModal`) with `React.lazy()` and `<Suspense>` boundaries, and trimmed legacy `@radix-ui` dependencies to streamline admin bundle footprint.
+
 ## v0.13.5 (2026-08-31)
 
 - **Modular Sidebar Architecture (`@kyro-cms/admin` v0.13.3)**: Refactored `Sidebar.astro` monolith into modular sub-components (`SidebarHeader`, `ProjectSwitcher`, `SidebarNav`, `SidebarNavItem`, `SidebarIcon`, `SidebarFooter`, `sidebar-client.ts`), eliminating redundant polling intervals and streamlining multi-namespace icon resolution.

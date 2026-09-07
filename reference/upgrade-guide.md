@@ -9,6 +9,12 @@ Kyro CMS follows [semantic versioning](https://semver.org/). Future breaking cha
 
 ---
 
+## v0.13.6
+
+- **Consolidated Field Helpers (`@kyro-cms/core` v0.13.6)**: `flattenFields` and `processBlocksUploadFields` are now exported from `@kyro-cms/core` utilities. Internal schema processors and database adapters automatically utilize the unified helpers without breaking changes to existing collection configurations.
+- **Automated URL Health Auditing (`@kyro-cms/core` v0.13.6)**: The Content Health auditor automatically checks link syntax for text fields with URL formatting or names (`url`, `link`) in addition to explicit `url` fields.
+- **Admin View Optimization (`@kyro-cms/admin` v0.13.4)**: `ListView` and `CompactListView` now share `flattenAdminFields` for recursive field flattening. Heavy editor modals load lazily with `<Suspense>` fallbacks, reducing initial admin page load overhead.
+
 ## v0.13.5
 
 - **Modular Sidebar Architecture (`@kyro-cms/admin` v0.13.3)**: `Sidebar.astro` has been decomposed into dedicated sub-components (`SidebarHeader`, `ProjectSwitcher`, `SidebarNav`, `SidebarNavItem`, `SidebarIcon`, `SidebarFooter`, and `sidebar-client.ts`). No migration steps or manual import updates are required.
