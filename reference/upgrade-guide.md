@@ -9,6 +9,18 @@ Kyro CMS follows [semantic versioning](https://semver.org/). Future breaking cha
 
 ---
 
+## v0.13.9
+
+- **Icon Pre-bundling & Hydration Resiliency (`@kyro-cms/admin` v0.13.6)**: The `kyroAdmin` integration now automatically configures Vite dependency pre-bundling for `lucide-react` and `@heroicons/react`. This prevents ad blockers and privacy extensions from blocking icon files (such as `fingerprint.js`) on fresh projects. No manual Vite configuration or ad-blocker whitelisting is needed.
+
+## v0.13.8
+
+- **Storage Driver Dynamic Loading (`@kyro-cms/core` v0.13.8, `@kyro-cms/admin` v0.13.5)**: Unstorage IndexedDB drivers are now loaded asynchronously upon client interaction. Projects running SSR or `astro dev` will no longer evaluate browser drivers on the server, and `idb-keyval` is bundled directly into package dependencies without requiring manual application-level installation.
+
+## v0.13.7
+
+- **MongoDB Client Caching (`@kyro-cms/core` v0.13.7)**: MongoDB adapter queries now utilize pooled and globally cached client handles. No manual configuration updates are required.
+
 ## v0.13.6
 
 - **Consolidated Field Helpers (`@kyro-cms/core` v0.13.6)**: `flattenFields` and `processBlocksUploadFields` are now exported from `@kyro-cms/core` utilities. Internal schema processors and database adapters automatically utilize the unified helpers without breaking changes to existing collection configurations.

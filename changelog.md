@@ -2,6 +2,20 @@
 
 All notable changes to **Kyro CMS** are documented here.
 
+## v0.13.9 (2026-09-08)
+
+- **Vite Pre-bundling & Ad-Blocker Resiliency (`@kyro-cms/admin` v0.13.6)**: Added `lucide-react`, `@kyro-cms/admin > lucide-react`, and `@heroicons/react` to Vite's `optimizeDeps.include` in the `kyroAdmin` integration. Pre-compiling icon catalogs eliminates unbundled HTTP requests to `icons/fingerprint.js` that trigger false-positive `net::ERR_BLOCKED_BY_CLIENT` errors in ad blockers (uBlock Origin, Brave Shields) and prevents island hydration failures.
+- **Icon Dependency Decoupling (`@kyro-cms/admin` v0.13.6)**: Decoupled `DynamicIcon` from common icon exports in `icons.tsx` and updated `CommandPalette` to import it directly, preventing lightweight admin components (`UserMenu`, `Toaster`, `GlobalModal`, `MediaGallery`) from eagerly evaluating the 1,500-icon dynamic catalog on initial page load.
+
+## v0.13.8 (2026-09-08)
+
+- **SSR Module Resolution & Driver Lazy-Loading (`@kyro-cms/core` v0.13.8, `@kyro-cms/admin` v0.13.5)**: Converted static imports of `unstorage/drivers/indexedb` to dynamic imports inside `createBrowserStorage()` and `useAutoFormStore`'s `getStorage()`, preventing Node.js ESM evaluation crashes on missing browser-only peer dependencies during Astro server startup and SSR.
+- **Explicit Browser Storage Dependency (`@kyro-cms/core` v0.13.8, `@kyro-cms/admin` v0.13.5)**: Declared `idb-keyval` directly in package dependencies to guarantee runtime availability for client-side IndexedDB persistence without requiring manual installation by end users.
+
+## v0.13.7 (2026-09-08)
+
+- **Global MongoDB Connection Pooling (`@kyro-cms/core` v0.13.7)**: Implemented global `MongoClient` instance caching and customizable connection pool settings to optimize resource utilization and prevent socket exhaustion across serverless and long-running Node.js runtimes.
+
 ## v0.13.6 (2026-09-08)
 
 - **Field Normalization & Helper Consolidation (`@kyro-cms/core` v0.13.6)**: Centralized recursive wrapper field flattening (`flattenFields`) and nested dynamic blocks upload normalization (`processBlocksUploadFields`) into `@kyro-cms/core/utils/field-helpers`, deduplicating schema processing across local SQLite, Drizzle schema mapper, and Zod validation builders.
