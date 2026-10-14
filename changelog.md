@@ -2,6 +2,11 @@
 
 All notable changes to **Kyro CMS** are documented here.
 
+## v0.13.10 (2026-10-14)
+
+- **Local Database Path Auto-Resolution & Directory Provisioning (`@kyro-cms/core` v0.13.10)**: `LocalAdapter.connect()` now automatically detects parent-directory paths (`..`) when running within workspace subpackages (such as `admin/`) and provisions missing target directories via `fs.mkdirSync(dir, { recursive: true })`, preventing `ERR_SQLITE_ERROR: unable to open database file` errors.
+- **Admin Esbuild External Package Resolution (`@kyro-cms/admin` v0.13.7)**: Configured `packages: 'external'` in the `kyroAdmin` integration's `esbuild` options. This ensures transitive dependencies and Node built-ins (`node:https`, `@smithy/*`) imported by `defineKyroConfig` remain externalized during runtime config extraction, preventing `Dynamic require of "node:https" is not supported` errors in ESM worker threads.
+
 ## v0.13.9 (2026-09-08)
 
 - **Vite Pre-bundling & Ad-Blocker Resiliency (`@kyro-cms/admin` v0.13.6)**: Added `lucide-react`, `@kyro-cms/admin > lucide-react`, and `@heroicons/react` to Vite's `optimizeDeps.include` in the `kyroAdmin` integration. Pre-compiling icon catalogs eliminates unbundled HTTP requests to `icons/fingerprint.js` that trigger false-positive `net::ERR_BLOCKED_BY_CLIENT` errors in ad blockers (uBlock Origin, Brave Shields) and prevents island hydration failures.

@@ -1,0 +1,709 @@
+/* Documentation follows the homepage's orange, type, and spacing system.
+   Keep VitePress responsible for navigation, search, anchors, and themes. */
+:root {
+  --vp-nav-height: 72px;
+  --vp-font-family-base: "Geist Variable", sans-serif;
+  --vp-c-brand-1: #ab3500;
+  --vp-c-brand-2: #c44100;
+  --vp-c-brand-3: #ff570a;
+  --vp-c-brand-soft: #fff0e7;
+  --vp-code-link-color: #ab3500;
+  --vp-button-brand-bg: #ff570a;
+  --vp-button-brand-text: #181818;
+  --vp-button-brand-hover-bg: #ef4e00;
+  --vp-button-brand-hover-text: #181818;
+}
+.dark {
+  --vp-c-brand-1: #ff9b6b;
+  --vp-c-brand-2: #ffb28c;
+  --vp-c-brand-3: #ff570a;
+  --vp-c-brand-soft: #35271f;
+  --vp-code-link-color: #ff9b6b;
+}
+.kyro-docs {
+  --docs-orange: #ff570a;
+  --docs-accent-ink: #ab3500;
+  --docs-canvas: #ffffff;
+  --docs-sidebar: #fafafa;
+  --docs-muted: #f4f4f5;
+  --docs-border: #e4e4e7;
+  --docs-ink: #181818;
+  --docs-text: #45454b;
+  --docs-subtle: #68686f;
+  --docs-accent-soft: #fff0e7;
+  --docs-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --k-bg-root: var(--docs-canvas);
+  --k-bg-soft: var(--docs-sidebar);
+  --k-bg-mute: var(--docs-muted);
+  --k-bg-elv: var(--docs-canvas);
+  --k-border: var(--docs-border);
+  --k-border-hover: #c9c9ce;
+  --k-text-1: var(--docs-ink);
+  --k-text-2: var(--docs-text);
+  --k-text-3: var(--docs-subtle);
+  --k-code-bg: var(--docs-muted);
+  --k-code-border: var(--docs-border);
+  --k-accent: var(--docs-accent-ink);
+  --vp-c-bg: var(--docs-canvas);
+  --vp-c-bg-alt: var(--docs-sidebar);
+  --vp-c-bg-elv: var(--docs-canvas);
+  --vp-c-bg-soft: var(--docs-muted);
+  --vp-c-text-1: var(--docs-ink);
+  --vp-c-text-2: var(--docs-text);
+  --vp-c-text-3: var(--docs-subtle);
+  --vp-c-divider: var(--docs-border);
+  --vp-c-gutter: var(--docs-border);
+  --vp-code-bg: var(--docs-muted);
+  --vp-code-block-bg: var(--docs-sidebar);
+  --vp-nav-height: 72px;
+  --vp-sidebar-width: 272px;
+  background: var(--docs-canvas);
+  color: var(--docs-ink);
+  font-family: var(--vp-font-family-base);
+}
+.dark .kyro-docs {
+  --docs-canvas: #181818;
+  --docs-sidebar: #1f1f1f;
+  --docs-muted: #272727;
+  --docs-border: #313131;
+  --docs-ink: #f4f4f5;
+  --docs-text: #c4c4c9;
+  --docs-subtle: #a1a1a8;
+  --docs-accent-ink: #ff9b6b;
+  --docs-accent-soft: #35271f;
+  --k-border-hover: #505055;
+}
+.kyro-docs :is(a, button, summary, input):focus-visible {
+  outline: 2px solid var(--docs-orange);
+  outline-offset: 4px;
+}
+.kyro-docs .VPNav {
+  border-bottom: 1px solid var(--docs-border) !important;
+}
+.kyro-docs .VPNavBar,
+.kyro-docs .VPNavBar.has-sidebar.fill {
+  background: var(--docs-canvas) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.kyro-docs .VPNavBar .divider {
+  display: none;
+}
+.kyro-docs .VPNavBarTitle .title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  border-bottom: 0;
+}
+.kyro-docs .VPNavBarTitle .logo {
+  height: 28px;
+  width: 32px;
+  margin-right: 8px;
+}
+.docs-nav-label {
+  margin-left: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--docs-subtle);
+  border-left: 1px solid var(--docs-border);
+  padding-left: 12px;
+}
+.kyro-docs .VPNavBarMenu .VPNavBarMenuLink {
+  font-size: 14px;
+  color: var(--docs-text) !important;
+}
+.kyro-docs .VPNavBarMenu .VPNavBarMenuLink:is(:hover, .active) {
+  color: var(--docs-accent-ink) !important;
+}
+.kyro-docs .VPNavBarSearch .DocSearch-Button {
+  background: var(--docs-sidebar) !important;
+  border-color: var(--docs-border) !important;
+  border-radius: 8px;
+  height: 40px;
+  color: var(--docs-subtle);
+}
+.kyro-docs .VPNavBarSearch .DocSearch-Button:hover {
+  border-color: var(--docs-orange) !important;
+}
+.kyro-docs .VPSidebar {
+  background: var(--docs-sidebar) !important;
+  border-right: 1px solid var(--docs-border) !important;
+  scrollbar-width: thin;
+  scrollbar-color: var(--docs-border) transparent;
+}
+.kyro-docs .VPSidebar .curtain {
+  background: var(--docs-sidebar);
+}
+.kyro-docs .VPSidebarItem.level-0 > .item > .text {
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 600;
+  color: var(--docs-ink);
+}
+.kyro-docs .VPSidebarItem.level-1 > .item {
+  padding: 2px 12px;
+  border-radius: 8px;
+}
+.kyro-docs .VPSidebarItem.level-1 > .item .link {
+  font-size: 14px;
+  color: var(--docs-subtle) !important;
+}
+.kyro-docs .VPSidebarItem.level-1:hover > .item {
+  background: var(--docs-muted);
+}
+.kyro-docs .VPSidebarItem.level-1.is-active > .item {
+  background: var(--docs-accent-soft);
+}
+.kyro-docs .VPSidebarItem.level-1.is-active > .item::before {
+  display: none;
+}
+.kyro-docs .VPSidebarItem.level-1.is-active :is(.link, .text) {
+  color: var(--docs-accent-ink) !important;
+  font-weight: 600;
+}
+.kyro-docs .VPSidebarItem.level-0 > .items {
+  padding-top: 8px;
+}
+.kyro-docs .VPSidebar .group + .group {
+  border-top: 0;
+  padding-top: 24px;
+}
+.docs-sidebar-help {
+  border-top: 1px solid var(--docs-border);
+  margin-top: 24px;
+  padding-top: 24px;
+  font-size: 12px;
+}
+.docs-sidebar-help p {
+  margin-bottom: 8px;
+  color: var(--docs-subtle);
+}
+.docs-sidebar-help a {
+  color: var(--docs-accent-ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  font-weight: 500;
+}
+.kyro-docs .VPContent {
+  background: var(--docs-canvas);
+}
+.kyro-docs .VPDoc .container {
+  max-width: 1120px;
+}
+.kyro-docs .VPDoc .content-container {
+  max-width: 720px;
+}
+.kyro-docs .VPDoc .content {
+  padding-bottom: 64px;
+}
+.docs-page-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.docs-page-meta nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--docs-subtle);
+}
+.docs-page-meta nav a:hover {
+  color: var(--docs-accent-ink);
+}
+.docs-version {
+  border: 1px solid var(--docs-border);
+  background: var(--docs-sidebar);
+  color: var(--docs-subtle);
+  border-radius: 9999px;
+  padding: 4px 12px;
+  font:
+    12px/16px ui-monospace,
+    monospace;
+}
+.docs-version:hover {
+  border-color: var(--docs-orange);
+  color: var(--docs-accent-ink);
+}
+.kyro-docs .vp-doc h1 {
+  font-size: 48px;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  margin-bottom: 24px;
+  text-wrap: balance;
+}
+.kyro-docs .vp-doc h1 + p {
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--docs-subtle);
+  margin-bottom: 32px;
+}
+.kyro-docs .vp-doc h2 {
+  font-size: 30px;
+  line-height: 36px;
+  letter-spacing: -0.035em;
+  padding-top: 32px;
+  padding-bottom: 0;
+  margin-top: 48px;
+  margin-bottom: 16px;
+  border-bottom: 0;
+  border-top: 1px solid var(--docs-border);
+  text-wrap: balance;
+}
+.kyro-docs .vp-doc h3 {
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.025em;
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+.kyro-docs .vp-doc h4 {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--docs-ink);
+  text-transform: none;
+  letter-spacing: -0.015em;
+  margin-top: 24px;
+}
+.kyro-docs .vp-doc :is(p, li) {
+  font-size: 16px;
+  line-height: 28px;
+  color: var(--docs-text);
+}
+.kyro-docs .vp-doc p {
+  margin-block: 16px;
+  text-wrap: pretty;
+}
+.kyro-docs .vp-doc li + li {
+  margin-top: 8px;
+}
+.kyro-docs .vp-doc a {
+  color: var(--docs-accent-ink);
+  background: none;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  font-weight: 500;
+  transition: text-decoration-color 0.2s var(--docs-ease);
+}
+.kyro-docs .vp-doc a:hover {
+  color: var(--docs-accent-ink);
+  text-decoration-color: currentColor;
+}
+.kyro-docs .vp-doc .header-anchor {
+  color: var(--docs-accent-ink) !important;
+  text-decoration: none;
+}
+.kyro-docs .vp-doc .header-anchor:focus-visible {
+  opacity: 1;
+}
+.kyro-docs .vp-doc :not(pre) > code {
+  font-size: 14px;
+  line-height: 20px;
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-weight: 400;
+}
+.kyro-docs .vp-doc div[class*="language-"] {
+  margin: 24px 0;
+  border: 1px solid var(--docs-border);
+  border-radius: 12px;
+  box-shadow: none;
+  background: var(--docs-sidebar) !important;
+}
+.kyro-docs .vp-doc div[class*="language-"]::before {
+  display: none;
+}
+.kyro-docs .vp-doc div[class*="language-"] pre {
+  padding: 48px 24px 24px;
+  font-size: 14px;
+  line-height: 24px;
+}
+.kyro-docs .vp-doc div[class*="language-"] .lang {
+  top: 16px;
+  left: 24px;
+  right: auto;
+  opacity: 1;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--docs-subtle);
+}
+.kyro-docs .vp-doc div[class*="language-"] > button.copy {
+  top: 8px;
+  right: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: var(--docs-canvas);
+  border-color: var(--docs-border);
+  background-size: 16px;
+  opacity: 1;
+}
+.kyro-docs .vp-doc div[class*="language-"] > button.copy:hover {
+  border-color: var(--docs-orange);
+}
+.kyro-docs .vp-doc .vp-code-group .tabs {
+  background: var(--docs-sidebar);
+  border-radius: 12px 12px 0 0;
+  border: 1px solid var(--docs-border);
+}
+.kyro-docs .vp-doc .vp-code-group .tabs label {
+  color: var(--docs-subtle);
+  font-size: 14px;
+}
+.kyro-docs .vp-doc .vp-code-group .tabs input:checked + label {
+  color: var(--docs-accent-ink);
+}
+.kyro-docs .vp-doc .vp-code-group div[class*="language-"] {
+  margin-top: 0;
+  border-radius: 0 0 12px 12px;
+}
+.kyro-docs .vp-doc table {
+  font-size: 14px;
+  border-radius: 8px;
+  margin-block: 24px;
+  overflow-x: auto;
+}
+.kyro-docs .vp-doc th {
+  font-size: 12px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--docs-ink);
+  padding: 12px 16px;
+}
+.kyro-docs .vp-doc td {
+  padding: 12px 16px;
+  color: var(--docs-text);
+}
+.kyro-docs .vp-doc tbody tr:nth-child(even) {
+  background: var(--docs-sidebar);
+}
+.kyro-docs .vp-doc .custom-block {
+  border-radius: 12px !important;
+  padding: 16px 24px !important;
+  margin-block: 24px !important;
+}
+.kyro-docs .vp-doc .custom-block::before {
+  display: none;
+}
+.kyro-docs .vp-doc .custom-block:is(.tip, .info) {
+  background: var(--docs-sidebar) !important;
+  border-color: var(--docs-border) !important;
+}
+.kyro-docs .vp-doc .custom-block.warning {
+  background: var(--docs-accent-soft) !important;
+  border-color: var(--docs-orange) !important;
+}
+.kyro-docs .vp-doc .custom-block .custom-block-title {
+  padding-left: 0;
+  font-size: 14px !important;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-bottom: 8px !important;
+  color: var(--docs-ink);
+}
+.kyro-docs .vp-doc .custom-block p {
+  padding-left: 0;
+  font-size: 14px;
+  line-height: 24px;
+  margin-block: 8px;
+}
+.kyro-docs .VPDocAsideOutline {
+  border-left: 1px solid var(--docs-border);
+}
+.kyro-docs .VPDocAsideOutline .outline-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--docs-ink);
+}
+.kyro-docs .VPDocOutlineItem a {
+  font-size: 12px;
+  line-height: 24px;
+  color: var(--docs-subtle) !important;
+}
+.kyro-docs .VPDocOutlineItem a:is(:hover, .active) {
+  color: var(--docs-accent-ink) !important;
+}
+.kyro-docs .VPDocAsideOutline .outline-marker {
+  background: var(--docs-orange) !important;
+  border-radius: 9999px !important;
+}
+.docs-aside-help {
+  border-top: 1px solid var(--docs-border);
+  margin-top: 32px;
+  padding-top: 24px;
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--docs-subtle);
+}
+.docs-aside-help p {
+  margin-bottom: 8px;
+}
+.docs-aside-help a {
+  color: var(--docs-accent-ink);
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  min-height: 32px;
+}
+.kyro-docs .VPDocFooter {
+  margin-top: 48px;
+}
+.kyro-docs .VPDocFooter .pager-link {
+  border-radius: 12px;
+  padding: 16px 24px;
+  background: var(--docs-sidebar);
+  border-color: var(--docs-border);
+  box-shadow: none;
+  transition:
+    border-color 0.2s var(--docs-ease),
+    background 0.2s var(--docs-ease);
+}
+.kyro-docs .VPDocFooter .pager-link:hover {
+  border-color: var(--docs-orange);
+  transform: none;
+  background: var(--docs-accent-soft);
+  box-shadow: none;
+}
+.kyro-docs .VPDocFooter .desc {
+  color: var(--docs-subtle);
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.kyro-docs .VPDocFooter .title {
+  color: var(--docs-accent-ink);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+.kyro-docs .VPLocalNav {
+  background: var(--docs-canvas);
+  border-bottom: 1px solid var(--docs-border);
+}
+.kyro-docs .VPLocalNav .menu-text {
+  color: var(--docs-ink);
+  font-size: 14px;
+}
+.kyro-docs .VPLocalNav .menu:hover {
+  color: var(--docs-accent-ink);
+}
+.kyro-docs .VPNavScreen {
+  background: var(--docs-canvas);
+}
+.kyro-docs .announcement-banner {
+  background: var(--docs-sidebar) !important;
+  color: var(--docs-subtle) !important;
+  border-bottom: 1px solid var(--docs-border) !important;
+  font-size: 12px !important;
+  padding-block: 8px;
+}
+.dark .kyro-docs .announcement-banner {
+  background: var(--docs-sidebar) !important;
+  color: var(--docs-subtle) !important;
+  border-color: var(--docs-border) !important;
+}
+.kyro-docs .announcement-banner .learn-more-link {
+  color: var(--docs-accent-ink) !important;
+  font-size: 12px;
+}
+.kyro-docs .announcement-banner .close-button {
+  min-width: 32px;
+  min-height: 32px;
+  opacity: 1;
+}
+/* Local search is mounted outside Layout, so its theme uses root brand tokens. */
+.VPLocalSearchBox {
+  --vp-c-brand-1: #ab3500;
+  --vp-c-brand-soft: #fff0e7;
+  font-family: "Geist Variable", sans-serif;
+}
+.dark .VPLocalSearchBox {
+  --vp-c-brand-1: #ff9b6b;
+  --vp-c-brand-soft: #35271f;
+}
+.VPLocalSearchBox .shell {
+  border-radius: 16px;
+  border: 1px solid var(--vp-c-divider);
+}
+.VPLocalSearchBox .search-bar {
+  border-radius: 8px;
+}
+@media (min-width: 1280px) {
+  .kyro-docs .VPDoc {
+    padding-inline: 48px;
+    padding-top: 48px;
+  }
+  .kyro-docs .VPDoc .aside {
+    max-width: 224px;
+    padding-left: 32px;
+  }
+  .kyro-docs .VPDoc .aside-container {
+    width: 192px;
+  }
+}
+@media (max-width: 1279px) {
+  .docs-nav-label {
+    display: none;
+  }
+  .kyro-docs .vp-doc h1 {
+    font-size: 36px;
+    line-height: 40px;
+  }
+}
+@media (max-width: 767px) {
+  .kyro-docs {
+    --vp-nav-height: 64px;
+  }
+  .kyro-docs .VPDoc {
+    padding: 32px 20px 64px;
+  }
+  .kyro-docs .vp-doc h1 {
+    font-size: 36px;
+    line-height: 40px;
+  }
+  .kyro-docs .vp-doc h2 {
+    font-size: 24px;
+    line-height: 32px;
+    margin-top: 32px;
+    padding-top: 24px;
+  }
+  .kyro-docs .vp-doc h1 + p {
+    font-size: 16px;
+    line-height: 28px;
+  }
+  .kyro-docs .VPDoc .content {
+    padding-bottom: 0;
+  }
+  .kyro-docs .vp-doc div[class*="language-"] {
+    margin-inline: 0;
+    border-radius: 8px;
+  }
+  .kyro-docs .vp-doc div[class*="language-"] pre {
+    padding-inline: 16px;
+    font-size: 12px;
+  }
+  .kyro-docs .vp-doc div[class*="language-"] .lang {
+    left: 16px;
+  }
+  .kyro-docs .vp-doc .custom-block {
+    padding: 16px !important;
+  }
+  .kyro-docs .VPSidebarItem.level-1 > .item {
+    padding-block: 4px;
+  }
+  .kyro-docs .VPSidebarItem.level-1 .link {
+    min-height: 36px;
+  }
+  .kyro-docs .VPSidebar {
+    max-width: calc(100vw - 48px);
+  }
+  .kyro-docs .VPDocFooter .pager-link {
+    padding: 16px;
+  }
+  .kyro-docs .VPDocFooter .title {
+    font-size: 14px;
+  }
+  .docs-page-meta {
+    margin-bottom: 24px;
+  }
+  .docs-sidebar-help a,
+  .docs-aside-help a {
+    min-height: 44px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kyro-docs *,
+  .VPLocalSearchBox * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Search aliases are defined at root by VitePress; set them directly here
+   so highlighted matches and selection borders use the document palette. */
+.VPLocalSearchBox {
+  --vp-local-search-highlight-bg: #fff0e7;
+  --vp-local-search-highlight-text: #ab3500;
+  --vp-local-search-result-selected-border: #ff570a;
+  --vp-local-search-result-selected-bg: #fff8f4;
+  --vp-local-search-result-border: #e4e4e7;
+}
+.dark .VPLocalSearchBox {
+  --vp-local-search-highlight-bg: #493025;
+  --vp-local-search-highlight-text: #ffb28c;
+  --vp-local-search-result-selected-bg: #272727;
+  --vp-local-search-result-border: #313131;
+}
+.VPLocalSearchBox .shell {
+  border-radius: 16px !important;
+}
+.VPLocalSearchBox .result {
+  border-radius: 8px;
+  border-width: 1px;
+}
+.VPLocalSearchBox .result.selected {
+  border-color: #ff570a;
+}
+
+/* Some authored guides already separate sections with a horizontal rule. */
+.kyro-docs .vp-doc hr + h2 {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 32px;
+}
+@media (max-width: 767px) {
+  .kyro-docs .announcement-banner .banner-content {
+    display: block;
+  }
+  .kyro-docs .announcement-banner p {
+    display: inline;
+  }
+  .kyro-docs .announcement-banner .learn-more-link {
+    margin-left: 8px;
+  }
+  .kyro-docs .VPSidebarItem.level-1 .link {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --vp-nav-height: 64px;
+  }
+  .kyro-docs .vp-doc div[class*="language-"] > button.copy {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* The outline flyout sits below the notice and its own sticky toolbar. */
+.kyro-docs .VPLocalNavOutlineDropdown .items {
+  top: calc(var(--vp-layout-top-height, 0px) + 48px);
+  max-height: calc(100dvh - var(--vp-layout-top-height, 0px) - 112px);
+  background: var(--docs-canvas);
+  border-color: var(--docs-border);
+  box-shadow: 0 12px 32px #18181816;
+}
+.kyro-docs .VPLocalNavOutlineDropdown button {
+  font-size: 14px;
+}
+@media (max-width: 767px) {
+  .kyro-docs .VPLocalNavOutlineDropdown .outline-link {
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+  }
+}

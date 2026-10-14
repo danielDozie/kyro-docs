@@ -9,6 +9,11 @@ Kyro CMS follows [semantic versioning](https://semver.org/). Future breaking cha
 
 ---
 
+## v0.13.10
+
+- **Config Transpilation Externalization (`@kyro-cms/admin` v0.13.7)**: The admin integration's background config loader now treats all packages as external during build. No action required; projects using `defineKyroConfig` with storage or server adapters will automatically avoid dynamic require errors.
+- **Local SQLite Adapter Directory Provisioning (`@kyro-cms/core` v0.13.10)**: `createLocalAdapter({ path: "./data/kyro.db" })` now automatically creates missing target directories and resolves paths properly when commands run from subprojects. No manual `fs.mkdirSync` or path manipulation needed in user configs.
+
 ## v0.13.9
 
 - **Icon Pre-bundling & Hydration Resiliency (`@kyro-cms/admin` v0.13.6)**: The `kyroAdmin` integration now automatically configures Vite dependency pre-bundling for `lucide-react` and `@heroicons/react`. This prevents ad blockers and privacy extensions from blocking icon files (such as `fingerprint.js`) on fresh projects. No manual Vite configuration or ad-blocker whitelisting is needed.

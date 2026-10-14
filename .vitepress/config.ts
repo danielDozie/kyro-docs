@@ -21,7 +21,7 @@ export default withMermaid(
           "data-domain": "kyro-cms.com",
         },
       ],
-      ["link", { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }],
+      ["link", { rel: "icon", href: "/logo-accent.svg", type: "image/svg+xml" }],
       ["meta", { name: "theme-color", content: "#09090b" }],
       [
         "meta",
@@ -51,7 +51,7 @@ export default withMermaid(
     },
 
     themeConfig: {
-      logo: { light: "/logo.svg", dark: "/logo-white.svg" },
+      logo: { light: "/logo-accent.svg", dark: "/logo-accent.svg" },
       siteTitle: "Kyro CMS",
 
       search: {
@@ -161,7 +161,7 @@ export default withMermaid(
 
       editLink: {
         pattern:
-          "https://github.com/danielDozie/kyro-cms/edit/Stable/docs/:path",
+          "https://github.com/danielDozie/kyro-cms/edit/main/docs/:path",
         text: "Edit this page on GitHub",
       },
 
